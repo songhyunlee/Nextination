@@ -28,12 +28,18 @@ function show(city) {
     var info = document.createElement('div');
     var cityName = document.createElement('p');
     var country = document.createElement('p');
+    var localtime = document.createElement('p');
+    var description = document.createElement('p');
     info.setAttribute('class', 'col-md-8 info');
     cityName.textContent = city[i].name;
     country.textContent = city[i].country;
+    localtime.textContent = new Date().toLocaleString('en-US', { timeZone: city[i].time })
+    description.textContent = city[i].description;
 
     info.appendChild(cityName);
     info.appendChild(country);
+    info.appendChild(localtime);
+    info.appendChild(description);
     where.appendChild(info);
   }
   return where
@@ -54,7 +60,6 @@ function getResults() {
   xhr.open('GET', '/search/' + details.term);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send();
-  console.log((xhr.responseText));
 
   xhr.addEventListener('load', function() {
     show(JSON.parse(xhr.responseText));
