@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cities = require('./cities.js').data;
-var moment = require('moment-timezone');
 var jsonParser = bodyParser.json();
 
 var app = express();
@@ -9,7 +8,6 @@ var app = express();
 app.use(jsonParser);
 
 app.use(function (req, res, next) {
-  console.log(req.url);
   next();
 })
 
@@ -36,7 +34,6 @@ app.get('/search/:term', function(req, res) {
     }
   });
   res.send(cityInfo);
-  console.log(cityInfo);
 });
 
 app.listen(8080);

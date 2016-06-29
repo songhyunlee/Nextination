@@ -22,18 +22,20 @@ function search(form) {
   return search;
 }
 
+var photos = document.getElementById('photos');
+
 function show(city) {
   for (var i = 0; i < city.length; i++) {
     var where = document.getElementById('results');
     var info = document.createElement('div');
-    var cityName = document.createElement('p');
+    var cityName = document.createElement('h3');
     var country = document.createElement('p');
     var localtime = document.createElement('p');
     var description = document.createElement('p');
-    info.setAttribute('class', 'col-md-8 info');
+    info.setAttribute('class', 'col-offset-md-1 col-md-8 info');
     cityName.textContent = city[i].name;
     country.textContent = city[i].country;
-    localtime.textContent = new Date().toLocaleString('en-US', { timeZone: city[i].time })
+    localtime.textContent = "Local Time: " + new Date().toLocaleString('en-US', { timeZone: city[i].time })
     description.textContent = city[i].description;
 
     info.appendChild(cityName);
