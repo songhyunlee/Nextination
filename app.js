@@ -42,7 +42,7 @@ app.post('/search/:term', function(req, res) {
     url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search',
     qs: {
       api_key: 'e297c1e760675b2c72bb5c0ceffd355f',
-      tags: 'paris',
+      tags: req.body.tag,
       has_geo: 1,
       content_type: 1,
       per_page: 6,
@@ -51,7 +51,6 @@ app.post('/search/:term', function(req, res) {
     }
   }, function(error, response, body) {
     res.send(body);
-    console.log(body);
   })
 });
 

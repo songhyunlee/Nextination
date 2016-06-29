@@ -9,6 +9,7 @@ term.addEventListener("keydown", function(e) {
   if (e.keyCode === 13) {
     e.preventDefault();
     clear(results);
+    clear(photos);
     getResults();
     getPhotos();
   }
@@ -20,8 +21,6 @@ function search(form) {
   search.term = inputs.term.value;
   return search;
 }
-
-var photos = document.getElementById('photos');
 
 function show(city) {
   for (var i = 0; i < city.length; i++) {
@@ -46,10 +45,9 @@ function show(city) {
   return where
 }
 
-function clear(results) {
-  var results = document.getElementById('results');
-  while(results.firstChild) {
-    results.removeChild(results.firstChild);
+function clear(area) {
+  while(area.firstChild) {
+    area.removeChild(area.firstChild);
   }
 }
 
@@ -68,11 +66,17 @@ function getResults() {
 }
 
 function getPhotos() {
+  var theForm = document.getElementById('search');
+  var details = search(theForm);
+  console.log(details.term);
+  var tag = {
+    tag: details.term
+  }
   var request = new XMLHttpRequest();
   request.open('POST', '/search/:term');
   console.log(request);
   request.setRequestHeader('Content-Type', 'application/json');
-  request.send();
+  request.send(JSON.stringify(tag));
 
   request.addEventListener('load', function() {
     console.log('here');
@@ -83,6 +87,7 @@ function getPhotos() {
           var imgcont = document.createElement('div');
           imgcont.setAttribute('class', 'image-container');
           var image = document.createElement('img');
+          image.setAttribute('class', 'img-responsive');
           var photoId = photo.id;
           var owner = photo.owner;
           var imgURL = 'http://farm' + photo.farm + '.staticflickr.com/' +
@@ -94,3 +99,6 @@ function getPhotos() {
     })
   })
 };
+
+var results = document.getElementById('results');
+var photos = document.getElementById('photos');

@@ -17,7 +17,7 @@ module.exports = {
 }, {
   "name": "San Francisco",
   "country": "United States of America",
-  "time": "America/San_Francisco",
+  "time": "America/Los_Angeles",
   "description": "San Francisco, in northern California, is a city on the tip of a peninsula surrounded by the Pacific Ocean and San Francisco Bay. It's known for its hilly landscape, year-round fog, iconic Golden Gate Bridge, cable cars and colorful Victorian houses. The Financial District's Transamerica Pyramid is its most distinctive skyscraper. In the bay sits Alcatraz Island, site of the notorious former prison."
 }, {
   "name": "Tokyo",
