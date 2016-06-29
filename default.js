@@ -80,12 +80,17 @@ function getPhotos() {
     console.log(data);
     var photos = document.getElementById('photos');
       data.photos.photo.forEach(function (photo) {
+          var imgcont = document.createElement('div');
+          imgcont.setAttribute('class', 'image-container');
+          var image = document.createElement('img');
+          var photoId = photo.id;
+          var owner = photo.owner;
+          var imgURL = 'http://farm' + photo.farm + '.staticflickr.com/' +
+          photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
+          image.src = imgURL;
+          imgcont.appendChild(image);
+          photos.appendChild(imgcont);
 
-          var image = document.createElement('p');
-          image.textContent = 'image here'
-          photos.appendChild(image);
-      
     })
-
   })
 };
