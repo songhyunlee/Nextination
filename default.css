@@ -21,3 +21,9 @@ body{
   border: 5px solid #fff;
   overflow: hidden;
 }
+
+.col-md-8.photos{
+  margin-left: 60px;
+  margin-top: 30px;
+  width: 70%
+}

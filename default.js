@@ -1,17 +1,15 @@
 var myButton = document.getElementById('my-button');
 myButton.addEventListener('click', function () {
   clear(results);
-  getResults()
+  getResults();
 });
 
 var term = document.getElementById("term")
-term.addEventListener("keydown", function(e) {
+term.addEventListener('keydown', function(e) {
   if (e.keyCode === 13) {
     e.preventDefault();
     clear(results);
-    clear(photos);
     getResults();
-    getPhotos();
   }
 });
 
@@ -22,6 +20,12 @@ function search(form) {
   return search;
 }
 
+function showButton() {
+  var hidden = document.getElementsByClassName('hide')[0];
+  hidden.classList.remove('hide');
+  hidden.classList.add('current');
+}
+
 function show(city) {
   for (var i = 0; i < city.length; i++) {
     var where = document.getElementById('results');
@@ -30,17 +34,27 @@ function show(city) {
     var country = document.createElement('p');
     var localtime = document.createElement('p');
     var description = document.createElement('p');
+    var photobtn = document.createElement('button');
     info.setAttribute('class', 'col-offset-md-1 col-md-8 info');
     cityName.textContent = city[i].name;
     country.textContent = city[i].country;
     localtime.textContent = "Local Time: " + new Date().toLocaleString('en-US', { timeZone: city[i].time })
     description.textContent = city[i].description;
+    photobtn.setAttribute('class', 'btn btn-default btn-xs');
+    photobtn.textContent = 'Photos';
+    photobtn.setAttribute('id', 'photobtn');
 
     info.appendChild(cityName);
     info.appendChild(country);
     info.appendChild(localtime);
     info.appendChild(description);
+    info.appendChild(photobtn);
     where.appendChild(info);
+
+    var photobtn = document.getElementById("photobtn");
+    photobtn.addEventListener('click', function(e) {
+      getPhotos();
+    });
   }
   return where
 }
@@ -79,23 +93,20 @@ function getPhotos() {
   request.send(JSON.stringify(tag));
 
   request.addEventListener('load', function() {
-    console.log('here');
     var data = JSON.parse(request.response);
-    console.log(data);
     var photos = document.getElementById('photos');
-      data.photos.photo.forEach(function (photo) {
-          var imgcont = document.createElement('div');
-          imgcont.setAttribute('class', 'image-container');
-          var image = document.createElement('img');
-          image.setAttribute('class', 'img-responsive');
-          var photoId = photo.id;
-          var owner = photo.owner;
-          var imgURL = 'http://farm' + photo.farm + '.staticflickr.com/' +
-          photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
-          image.src = imgURL;
-          imgcont.appendChild(image);
-          photos.appendChild(imgcont);
-
+    data.photos.photo.forEach(function (photo) {
+      var imgcont = document.createElement('div');
+      imgcont.setAttribute('class', 'image-container');
+      var image = document.createElement('img');
+      image.setAttribute('class', 'img-responsive');
+      var photoId = photo.id;
+      var owner = photo.owner;
+      var imgURL = 'http://farm' + photo.farm + '.staticflickr.com/' +
+      photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
+      image.src = imgURL;
+      imgcont.appendChild(image);
+      photos.appendChild(imgcont);
     })
   })
 };
