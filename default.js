@@ -8,10 +8,8 @@ var term = document.getElementById("term")
 term.addEventListener("keydown", function(e) {
   if (e.keyCode === 13) {
     e.preventDefault();
-
     clear(results);
     getResults();
-
   }
 });
 
@@ -23,6 +21,24 @@ function search(form) {
 }
 
 var photos = document.getElementById('photos');
+
+
+// function jsonFlickrFeed(json) {
+//   console.log(json);
+//
+//   $.each(json.items, function(i, item) {
+//     $("<img />").attr("src", item.media.m).appendTo("#photos");
+//   });
+// };
+//
+// function loadImages() {
+//
+//   $.ajax({
+//     url: 'https://api.flickr.com/services/feeds/photos_public.gne',
+//     dataType: 'jsonp',
+//     data: { "tags": "paris", "format": "json" }
+//   });
+// }
 
 function show(city) {
   for (var i = 0; i < city.length; i++) {
@@ -65,5 +81,27 @@ function getResults() {
 
   xhr.addEventListener('load', function() {
     show(JSON.parse(xhr.responseText));
+    getPhotos();
   });
 }
+
+function getPhotos() {
+  var request = new XMLHttpRequest();
+  request.open('POST', '/search/:term');
+  console.log(request);
+  request.addEventListener('load', function() {
+    function imageInfo() {
+      console.log('here');
+      var data = JSON.parse(request.responseText);
+      var photos = document.getElementById('photos');
+      if (data.photo.tags.tag != '') {
+        data.photo.forEach(function (photo) {
+          var image = document.createElement('p');
+          image.src = photo.src;
+          photos.appendChild(image);
+        })
+      }
+    }
+  })
+  request.send();
+};

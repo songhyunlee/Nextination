@@ -36,4 +36,11 @@ app.get('/search/:term', function(req, res) {
   res.send(cityInfo);
 });
 
+app.post('/search/:term', function(req, res) {
+  request({
+    url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e297c1e760675b2c72bb5c0ceffd355f&lat=48.864716&lon=2.349014&format=json&auth_token=72157667638567973-faf171092cc109ee&api_sig=041b0238843840c5ce973ac5ea3ba0e4'
+  })
+  res.send()
+});
+
 app.listen(8080);
