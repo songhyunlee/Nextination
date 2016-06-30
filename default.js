@@ -36,6 +36,9 @@ function show(city) {
     localtime.textContent = "Local Time: " + new Date().toLocaleString('en-US', { timeZone: city[i].time })
     description.textContent = city[i].description;
 
+    var theContainer = document.createElement('div');
+    theContainer.setAttribute('class', 'container');
+
     var theNav = document.createElement('ul');
     theNav.setAttribute('class','nav nav-tabs');
 
@@ -69,6 +72,14 @@ function show(city) {
     home.setAttribute('class','tab-pane fade in active');
     home.appendChild(info);
 
+    var photomenu = document.createElement('div');
+    photomenu.setAttribute('id', 'menu1');
+    photomenu.setAttribute('class', 'tab-pane fade');
+
+    var weathermenu = document.createElement('div');
+    weathermenu.setAttribute('id', 'menu2');
+    weathermenu.setAttribute('class', 'tab-pane fade');
+
     info.appendChild(cityName);
     info.appendChild(country);
     info.appendChild(localtime);
@@ -77,7 +88,12 @@ function show(city) {
     theNav.appendChild(basicli);
     theNav.appendChild(photoli);
     theNav.appendChild(weatherli);
-    where.appendChild(theNav);
+    theContainer.appendChild(theNav);
+    tabContent.appendChild(home);
+    tabContent.appendChild(photomenu);
+    tabContent.appendChild(weathermenu);
+    theContainer.appendChild(tabContent);
+    where.appendChild(theContainer);
 
     // var photobtn = document.getElementById("photobtn");
     // photobtn.addEventListener('click', function(e) {
