@@ -44,6 +44,7 @@ app.post('/search/:term', function(req, res) {
       api_key: '0a713463c24036458c7a2c7c3b731c51',
       tags: req.body.tag,
       has_geo: 1,
+      sort: "relevance",
       content_type: 1,
       per_page: 5,
       format: 'json',

@@ -21,42 +21,61 @@ function search(form) {
   return search;
 }
 
-function showButton() {
-  var hidden = document.getElementsByClassName('hide')[0];
-  hidden.classList.remove('hide');
-  hidden.classList.add('current');
-}
-
 function show(city) {
   for (var i = 0; i < city.length; i++) {
     var where = document.getElementById('results');
     var info = document.createElement('div');
-    var cityName = document.createElement('h3');
+    var cityName = document.createElement('h2');
     var country = document.createElement('p');
     var localtime = document.createElement('p');
     var description = document.createElement('p');
-    var photobtn = document.createElement('button');
+
     info.setAttribute('class', 'col-offset-md-1 col-md-8 info');
     cityName.textContent = city[i].name;
     country.textContent = city[i].country;
     localtime.textContent = "Local Time: " + new Date().toLocaleString('en-US', { timeZone: city[i].time })
     description.textContent = city[i].description;
-    photobtn.setAttribute('class', 'btn btn-default btn-xs');
-    photobtn.textContent = 'Photos';
-    photobtn.setAttribute('id', 'photobtn');
+
+    var theNav = document.createElement('ul');
+    theNav.setAttribute('class','nav nav-tabs');
+
+    var basicli = document.createElement('li');
+    basicli.setAttribute('class', 'active');
+    var basictoggle = document.createElement('a');
+    basictoggle.setAttribute('data-toggle', 'tab');
+    basictoggle.setAttribute('href', '#home');
+    basictoggle.textContent = 'Basic Information';
+    basicli.appendChild(basictoggle);
+
+    var photoli = document.createElement('li');
+    var phototoggle = document.createElement('a');
+    phototoggle.setAttribute('data-toggle', 'tab');
+    phototoggle.setAttribute('href', '#menu1');
+    phototoggle.textContent = 'Photos';
+    photoli.appendChild(phototoggle);
+
+    var weatherli = document.createElement('li');
+    var weathertoggle = document.createElement('a');
+    weathertoggle.setAttribute('data-toggle', 'tab');
+    weathertoggle.setAttribute('href', '#menu2');
+    weathertoggle.textContent = 'Weather';
+    weatherli.appendChild(weathertoggle);
 
     info.appendChild(cityName);
     info.appendChild(country);
     info.appendChild(localtime);
     info.appendChild(description);
-    info.appendChild(photobtn);
-    where.appendChild(info);
+    basicli.appendChild(info);
+    theNav.appendChild(basicli);
+    theNav.appendChild(photoli);
+    theNav.appendChild(weatherli);
+    where.appendChild(theNav);
 
-    var photobtn = document.getElementById("photobtn");
-    photobtn.addEventListener('click', function(e) {
-      clear(photos);
-      getPhotos();
-    });
+    // var photobtn = document.getElementById("photobtn");
+    // photobtn.addEventListener('click', function(e) {
+    //   clear(photos);
+    //   getPhotos();
+    // });
   }
   return where
 }
@@ -88,6 +107,7 @@ function getPhotos() {
   var tag = {
     tag: details.term
   }
+
   var request = new XMLHttpRequest();
   request.open('POST', '/search/:term');
   request.setRequestHeader('Content-Type', 'application/json');
@@ -203,5 +223,23 @@ function getPhotos() {
   })
 };
 
+function getWeather() {
+  // var theForm = document.getElementById('search');
+  // var details = search(theForm);
+  //
+  // var tag = {
+  //   tag: details.term
+  // }
+  //
+  // var request = new XMLHttpRequest();
+  // request.open('POST', '/search/:term');
+  // request.setRequestHeader('Content-Type', 'application/json');
+  // request.send(JSON.stringify(tag));
+  //
+  // request.addEventListener('load', function() {
+  //   var data = JSON.parse(request.response);
+  //   var thePhoto = data.photos.photo;
+  // }
+}
 var results = document.getElementById('results');
 var photos = document.getElementById('photos');
