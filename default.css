@@ -20,4 +20,7 @@ body{
 
 ul.nav.nav-tabs {
   margin-top: 20px;
+  width: 80%;
+  margin-left: 60px;
+  margin-right: auto;
 }
