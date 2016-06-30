@@ -88,26 +88,85 @@ function getPhotos() {
   }
   var request = new XMLHttpRequest();
   request.open('POST', '/search/:term');
-  console.log(request);
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify(tag));
 
   request.addEventListener('load', function() {
     var data = JSON.parse(request.response);
+    var thePhoto = data.photos.photo;
     var photos = document.getElementById('photos');
-    data.photos.photo.forEach(function (photo) {
-      var imgcont = document.createElement('div');
-      imgcont.setAttribute('class', 'image-container');
+
+    var theCarousel = document.createElement('div');
+    theCarousel.setAttribute('class', 'carousel slide');
+    theCarousel.setAttribute('data-ride', 'carousel');
+    theCarousel.setAttribute('id', 'my-carousel');
+
+    var theList = document.createElement('ol');
+    theList.setAttribute('class', 'carousel-indicators');
+
+    var theActive = document.createElement('li');
+    theActive.setAttribute('data-target', '#my-carousel');
+    theActive.setAttribute('data-slide-to', '0');
+    theActive.setAttribute('class', 'active');
+
+    var theItems = [];
+    var one = document.createElement('li');
+    one.setAttribute('data-target', '#my-carousel');
+    one.setAttribute('data-slide-to', '1');
+    var two = document.createElement('li');
+    two.setAttribute('data-target', '#my-carousel');
+    two.setAttribute('data-slide-to', '2');
+    var three = document.createElement('li');
+    three.setAttribute('data-target', '#my-carousel');
+    three.setAttribute('data-slide-to', '3');
+    var four = document.createElement('li');
+    four.setAttribute('data-target', '#my-carousel');
+    four.setAttribute('data-slide-to', '4');
+
+    theItems.push(one, two, three, four);
+
+    var theInner = document.createElement('div');
+    theInner.setAttribute('class', 'carousel-inner');
+    theInner.setAttribute('role', 'listbox');
+
+    var active = document.createElement('div');
+    active.setAttribute('class', 'item active');
+
+    var images = [];
+    for (var i = 0; i < thePhoto.length; i++) {
       var image = document.createElement('img');
       image.setAttribute('class', 'img-responsive');
-      var photoId = photo.id;
-      var owner = photo.owner;
-      var imgURL = 'http://farm' + photo.farm + '.staticflickr.com/' +
-      photo.server + '/' + photo.id + '_' + photo.secret + '.jpg';
+      var photoId = thePhoto[i].id;
+      var owner = thePhoto[i].owner;
+      var imgURL = 'http://farm' + thePhoto[i].farm + '.staticflickr.com/' +
+      thePhoto[i].server + '/' + thePhoto[i].id + '_' + thePhoto[i].secret + '.jpg';
       image.src = imgURL;
-      imgcont.appendChild(image);
-      photos.appendChild(imgcont);
-    })
+      images.push(image);
+      console.log(image);
+    }
+
+    var inactiveItems = [];
+    for (var i = 0; i < images.length; i++) {
+      if(i === 0) {
+        active.appendChild(images[0]);
+        theInner.appendChild(active);
+      } else {
+        var inactive = document.createElement('div');
+        inactive.setAttribute('class', 'item');
+        inactive.appendChild(images[i]);
+        inactiveItems.push(inactive);
+      }
+    }
+    inactiveItems.forEach(function(inactiveItem) {
+      theInner.appendChild(inactiveItem)
+    });
+    theList.appendChild(theActive);
+    theItems.forEach(function(theItem) {
+      theList.appendChild(theItem)
+    });
+    theCarousel.appendChild(theInner);
+    theCarousel.appendChild(theList);
+    photos.appendChild(theCarousel);
   })
 };
 

@@ -41,11 +41,11 @@ app.post('/search/:term', function(req, res) {
   request({
     url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search',
     qs: {
-      api_key: 'e297c1e760675b2c72bb5c0ceffd355f',
+      api_key: '0a713463c24036458c7a2c7c3b731c51',
       tags: req.body.tag,
       has_geo: 1,
       content_type: 1,
-      per_page: 6,
+      per_page: 5,
       format: 'json',
       nojsoncallback: "?"
     }
