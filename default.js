@@ -9,6 +9,7 @@ term.addEventListener('keydown', function(e) {
   if (e.keyCode === 13) {
     e.preventDefault();
     clear(results);
+    clear(photos);
     getResults();
   }
 });
@@ -53,6 +54,7 @@ function show(city) {
 
     var photobtn = document.getElementById("photobtn");
     photobtn.addEventListener('click', function(e) {
+      clear(photos);
       getPhotos();
     });
   }
