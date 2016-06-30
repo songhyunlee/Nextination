@@ -61,11 +61,19 @@ function show(city) {
     weathertoggle.textContent = 'Weather';
     weatherli.appendChild(weathertoggle);
 
+    var tabContent = document.createElement('div');
+    tabContent.setAttribute('class', 'tab-content');
+
+    var home = document.createElement('div');
+    home.setAttribute('id', 'home');
+    home.setAttribute('class','tab-pane fade in active');
+    home.appendChild(info);
+
     info.appendChild(cityName);
     info.appendChild(country);
     info.appendChild(localtime);
     info.appendChild(description);
-    basicli.appendChild(info);
+
     theNav.appendChild(basicli);
     theNav.appendChild(photoli);
     theNav.appendChild(weatherli);
