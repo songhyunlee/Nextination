@@ -82,7 +82,7 @@ function getResults() {
 function getPhotos() {
   var theForm = document.getElementById('search');
   var details = search(theForm);
-  console.log(details.term);
+
   var tag = {
     tag: details.term
   }
@@ -94,33 +94,32 @@ function getPhotos() {
   request.addEventListener('load', function() {
     var data = JSON.parse(request.response);
     var thePhoto = data.photos.photo;
-    var photos = document.getElementById('photos');
 
     var theCarousel = document.createElement('div');
     theCarousel.setAttribute('class', 'carousel slide');
     theCarousel.setAttribute('data-ride', 'carousel');
-    theCarousel.setAttribute('id', 'my-carousel');
+    theCarousel.setAttribute('id', 'myCarousel');
 
     var theList = document.createElement('ol');
     theList.setAttribute('class', 'carousel-indicators');
 
     var theActive = document.createElement('li');
-    theActive.setAttribute('data-target', '#my-carousel');
+    theActive.setAttribute('data-target', '#myCarousel');
     theActive.setAttribute('data-slide-to', '0');
-    theActive.setAttribute('class', 'active');
+    theActive.setAttribute('class', 'item0 active');
 
     var theItems = [];
     var one = document.createElement('li');
-    one.setAttribute('data-target', '#my-carousel');
+    one.setAttribute('data-target', '#myCarousel');
     one.setAttribute('data-slide-to', '1');
     var two = document.createElement('li');
-    two.setAttribute('data-target', '#my-carousel');
+    two.setAttribute('data-target', '#myCarousel');
     two.setAttribute('data-slide-to', '2');
     var three = document.createElement('li');
-    three.setAttribute('data-target', '#my-carousel');
+    three.setAttribute('data-target', '#myCarousel');
     three.setAttribute('data-slide-to', '3');
     var four = document.createElement('li');
-    four.setAttribute('data-target', '#my-carousel');
+    four.setAttribute('data-target', '#myCarousel');
     four.setAttribute('data-slide-to', '4');
 
     theItems.push(one, two, three, four);
@@ -142,7 +141,6 @@ function getPhotos() {
       thePhoto[i].server + '/' + thePhoto[i].id + '_' + thePhoto[i].secret + '.jpg';
       image.src = imgURL;
       images.push(image);
-      console.log(image);
     }
 
     var inactiveItems = [];
@@ -157,6 +155,36 @@ function getPhotos() {
         inactiveItems.push(inactive);
       }
     }
+
+    //left and right arrow buttons
+    var left = document.createElement('a');
+    left.setAttribute('class', 'left carousel-control');
+    left.setAttribute('href', '#myCarousel');
+    left.setAttribute('role', 'button');
+    left.setAttribute('data-slide', 'prev');
+    var leftIcon = document.createElement('span');
+    leftIcon.setAttribute('class', 'glyphicon glyphicon-chevron-left');
+    leftIcon.setAttribute('aria-hidden', 'true');
+    var leftLabel = document.createElement('span');
+    leftLabel.setAttribute('class','sr-only');
+    leftLabel.textContent = 'Previous';
+    left.appendChild(leftIcon);
+    left.appendChild(leftLabel);
+
+    var right = document.createElement('a');
+    right.setAttribute('class', 'right carousel-control');
+    right.setAttribute('href', '#myCarousel');
+    right.setAttribute('role', 'button');
+    right.setAttribute('data-slide', 'next');
+    var rightIcon = document.createElement('span');
+    rightIcon.setAttribute('class', 'glyphicon glyphicon-chevron-right');
+    rightIcon.setAttribute('aria-hidden', 'true');
+    var rightLabel = document.createElement('span');
+    rightLabel.setAttribute('class','sr-only');
+    rightLabel.textContent = 'Next';
+    right.appendChild(rightIcon);
+    right.appendChild(rightLabel);
+
     inactiveItems.forEach(function(inactiveItem) {
       theInner.appendChild(inactiveItem)
     });
@@ -164,9 +192,12 @@ function getPhotos() {
     theItems.forEach(function(theItem) {
       theList.appendChild(theItem)
     });
-    theCarousel.appendChild(theInner);
     theCarousel.appendChild(theList);
+    theCarousel.appendChild(theInner);
+    theCarousel.appendChild(left);
+    theCarousel.appendChild(right);
     photos.appendChild(theCarousel);
+
   })
 };
 
