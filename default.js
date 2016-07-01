@@ -22,6 +22,7 @@ function search(form) {
 }
 
 function show(city) {
+
   for (var i = 0; i < city.length; i++) {
     var where = document.getElementById('results');
     var info = document.createElement('div');
@@ -75,10 +76,12 @@ function show(city) {
     var photomenu = document.createElement('div');
     photomenu.setAttribute('id', 'menu1');
     photomenu.setAttribute('class', 'tab-pane fade');
+    photomenu.appendChild(photos);
 
     var weathermenu = document.createElement('div');
     weathermenu.setAttribute('id', 'menu2');
     weathermenu.setAttribute('class', 'tab-pane fade');
+    weathermenu.appendChild(weather);
 
     info.appendChild(cityName);
     info.appendChild(country);
@@ -95,11 +98,6 @@ function show(city) {
     theContainer.appendChild(tabContent);
     where.appendChild(theContainer);
 
-    // var photobtn = document.getElementById("photobtn");
-    // photobtn.addEventListener('click', function(e) {
-    //   clear(photos);
-    //   getPhotos();
-    // });
   }
   return where
 }
@@ -121,6 +119,7 @@ function getResults() {
 
   xhr.addEventListener('load', function() {
     show(JSON.parse(xhr.responseText));
+    getPhotos();
   });
 }
 
@@ -136,11 +135,9 @@ function getPhotos() {
   request.open('POST', '/search/:term');
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify(tag));
-
   request.addEventListener('load', function() {
     var data = JSON.parse(request.response);
     var thePhoto = data.photos.photo;
-
     var theCarousel = document.createElement('div');
     theCarousel.setAttribute('class', 'carousel slide');
     theCarousel.setAttribute('data-ride', 'carousel');
@@ -243,8 +240,8 @@ function getPhotos() {
     theCarousel.appendChild(left);
     theCarousel.appendChild(right);
     photos.appendChild(theCarousel);
-
   })
+  return photos;
 };
 
 function getWeather() {
@@ -264,6 +261,10 @@ function getWeather() {
   //   var data = JSON.parse(request.response);
   //   var thePhoto = data.photos.photo;
   // }
+
+  //****weather.appendChild(whatever that gets created in this function)
+  //return weather
 }
 var results = document.getElementById('results');
-var photos = document.getElementById('photos');
+var photos = document.createElement('div');
+var weather = document.createElement('div');
