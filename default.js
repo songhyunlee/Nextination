@@ -116,25 +116,31 @@ function getResults() {
   xhr.open('GET', '/search/' + details.term);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send();
-  var response = [];
+
   xhr.addEventListener('load', function() {
     show(JSON.parse(xhr.responseText));
+    response.data = JSON.parse(xhr.responseText);
     getPhotos();
   });
 }
+var response = [];
+// console.log(response.data[0].name);
 
 function getPhotos() {
+  clear(photos);
   var theForm = document.getElementById('search');
   var details = search(theForm);
 
-  var tag = {
-    tag: details.term
+  var searchterms = {
+    tag: response.data[0].tags,
+    lat: response.data[0].lat,
+    lon: response.data[0].lon,
   }
 
   var request = new XMLHttpRequest();
   request.open('POST', '/search/:term');
   request.setRequestHeader('Content-Type', 'application/json');
-  request.send(JSON.stringify(tag));
+  request.send(JSON.stringify(searchterms));
   request.addEventListener('load', function() {
     var data = JSON.parse(request.response);
     var thePhoto = data.photos.photo;

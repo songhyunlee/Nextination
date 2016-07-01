@@ -45,6 +45,8 @@ app.post('/search/:term', function(req, res) {
       tags: req.body.tag,
       has_geo: 1,
       sort: "relevance",
+      lat: req.body.lat,
+      lon: req.body.lon,
       content_type: 1,
       per_page: 5,
       format: 'json',
