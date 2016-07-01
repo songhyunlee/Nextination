@@ -24,3 +24,19 @@ ul.nav.nav-tabs {
   margin-left: 60px;
   margin-right: auto;
 }
+
+.carousel {
+  width: 550px;
+  height: auto;
+  margin-top: 20px;
+  margin-left: 20%;
+  margin-right: auto;
+  display: block;
+}
+
+/*.img {
+  width: 400px;
+  height: 400px;
+  margin: auto;
+  display: block;
+}*/

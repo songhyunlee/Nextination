@@ -116,7 +116,7 @@ function getResults() {
   xhr.open('GET', '/search/' + details.term);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send();
-
+  var response = [];
   xhr.addEventListener('load', function() {
     show(JSON.parse(xhr.responseText));
     getPhotos();
@@ -177,7 +177,7 @@ function getPhotos() {
     var images = [];
     for (var i = 0; i < thePhoto.length; i++) {
       var image = document.createElement('img');
-      image.setAttribute('class', 'img-responsive');
+      image.setAttribute('class','img-responsive');
       var photoId = thePhoto[i].id;
       var owner = thePhoto[i].owner;
       var imgURL = 'http://farm' + thePhoto[i].farm + '.staticflickr.com/' +
