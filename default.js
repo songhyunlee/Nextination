@@ -164,7 +164,7 @@ function getPhotos() {
     one.setAttribute('data-slide-to', '1');
     var two = document.createElement('li');
     two.setAttribute('data-target', '#myCarousel');
-    two.setAttribute('data-slide-to', '2');
+    two.setAttribute('data-slide-to', '2'); 
     var three = document.createElement('li');
     three.setAttribute('data-target', '#myCarousel');
     three.setAttribute('data-slide-to', '3');
