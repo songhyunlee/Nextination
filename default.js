@@ -126,6 +126,29 @@ function getResults() {
 var response = [];
 // console.log(response.data[0].name);
 
+
+function getWeather() {
+  var theForm = document.getElementById('search');
+  var details = search(theForm);
+
+  var searchwoe = {
+    woeid: response.data[0].woeid
+  }
+
+  var request = new XMLHttpRequest();
+  request.open('GET', '/weather');
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.send(JSON.stringify(searchwoe));
+
+  request.addEventListener('load', function() {
+    var data = JSON.parse(request.response);
+    console.log(data);
+  })
+
+  //****weather.appendChild(whatever that gets created in this function)
+  //return weather
+}
+
 function getPhotos() {
   clear(photos);
   var theForm = document.getElementById('search');
@@ -164,7 +187,7 @@ function getPhotos() {
     one.setAttribute('data-slide-to', '1');
     var two = document.createElement('li');
     two.setAttribute('data-target', '#myCarousel');
-    two.setAttribute('data-slide-to', '2'); 
+    two.setAttribute('data-slide-to', '2');
     var three = document.createElement('li');
     three.setAttribute('data-target', '#myCarousel');
     three.setAttribute('data-slide-to', '3');
@@ -251,27 +274,6 @@ function getPhotos() {
   return photos;
 };
 
-function getWeather() {
-  // var theForm = document.getElementById('search');
-  // var details = search(theForm);
-  //
-  // var tag = {
-  //   tag: details.term
-  // }
-  //
-  // var request = new XMLHttpRequest();
-  // request.open('POST', '/search/:term');
-  // request.setRequestHeader('Content-Type', 'application/json');
-  // request.send(JSON.stringify(tag));
-  //
-  // request.addEventListener('load', function() {
-  //   var data = JSON.parse(request.response);
-  //   var thePhoto = data.photos.photo;
-  // }
-
-  //****weather.appendChild(whatever that gets created in this function)
-  //return weather
-}
 var results = document.getElementById('results');
 var photos = document.createElement('div');
 var weather = document.createElement('div');

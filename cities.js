@@ -46,12 +46,13 @@ module.exports = {
   "tags": ["empire state building", "central park", "new york city"],
   "lat": 40.7128,
   "lon": 74.0059,
+  "woeid": 2459115,
   "description": "Home to the Empire State Building, Times Square, Statue of Liberty and other iconic sites, New York City is a fast-paced, globally influential center of art, culture, fashion and finance. The city’s 5 boroughs sit where the Hudson River meets the Atlantic Ocean, with the island borough of Manhattan at the Big Apple's core."
 }, {
   "name": "Cancun",
   "country": "Mexico",
   "time": "America/Cancun",
-  "tags": ["cancun"], 
+  "tags": ["playa del carmen", "mexcico", "sol", "cancun"],
   "lat": [],
   "lon": [],
   "description": "Cancún, a Mexican city on the Yucatán Peninsula bordering the Caribbean Sea, is known for its beaches, numerous resorts and energetic nightlife. It’s composed of 2 distinct areas: the more traditional downtown area, El Centro, and Zona Hotelera, a long, beachfront strip of high-rise hotels, nightclubs, shops and restaurants. Cancun is also a famed destination for students during college’s spring break period."
