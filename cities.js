@@ -48,15 +48,14 @@ module.exports = {
   "lon": 74.0059,
   "description": "Home to the Empire State Building, Times Square, Statue of Liberty and other iconic sites, New York City is a fast-paced, globally influential center of art, culture, fashion and finance. The city’s 5 boroughs sit where the Hudson River meets the Atlantic Ocean, with the island borough of Manhattan at the Big Apple's core."
 }, {
-//   "name": "Cancun",
-//   "country": "Mexico",
-//   "time": "America/Cancun",
-//   "tags": ["playa del carmen"],
-//   "lat": 21.1619,
-//   "lon": 86.8515,
-//   "description": "Cancún, a Mexican city on the Yucatán Peninsula bordering the Caribbean Sea, is known for its beaches, numerous resorts and energetic nightlife. It’s composed of 2 distinct areas: the more traditional downtown area, El Centro, and Zona Hotelera, a long, beachfront strip of high-rise hotels, nightclubs, shops and restaurants. Cancun is also a famed destination for students during college’s spring break period."
-// }, {
-
+  "name": "Cancun",
+  "country": "Mexico",
+  "time": "America/Cancun",
+  "tags": ["playa del carmen"],
+  "lat": [],
+  "lon": [],
+  "description": "Cancún, a Mexican city on the Yucatán Peninsula bordering the Caribbean Sea, is known for its beaches, numerous resorts and energetic nightlife. It’s composed of 2 distinct areas: the more traditional downtown area, El Centro, and Zona Hotelera, a long, beachfront strip of high-rise hotels, nightclubs, shops and restaurants. Cancun is also a famed destination for students during college’s spring break period."
+}, {
   "name": "Rio de Janeiro",
   "country": "Brazil",
   "time": "America/Sao_Paulo",

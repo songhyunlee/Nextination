@@ -141,6 +141,7 @@ function getPhotos() {
   request.open('POST', '/search/:term');
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify(searchterms));
+
   request.addEventListener('load', function() {
     var data = JSON.parse(request.response);
     var thePhoto = data.photos.photo;
