@@ -152,6 +152,7 @@ function getWeather(term, name, country) {
 }
 
 function forecast(locationKey) {
+  clear(weather);
   var xhr = new XMLHttpRequest();
   var input = {
     key: locationKey
@@ -164,23 +165,85 @@ function forecast(locationKey) {
     if (xhr.status >= 200 && xhr.status < 400) {
       var weatherData = JSON.parse(xhr.response);
       var forecasts = weatherData.DailyForecasts;
-      var dayOne = 'High: ' + forecasts[0].Temperature.Maximum.Value + '°F,' + ' Low: '
+      console.log(forecasts);
+
+      var dayOne = forecasts[0].Temperature.Maximum.Value + '°F' + '/ '
       + forecasts[0].Temperature.Minimum.Value + '°F';
-      var dayTwo = 'High: ' + forecasts[1].Temperature.Maximum.Value + '°F,' + ' Low: '
+      var dayTwo = forecasts[1].Temperature.Maximum.Value + '°F' + '/ '
       + forecasts[1].Temperature.Minimum.Value + '°F';
-      var dayThree = 'High: ' + forecasts[2].Temperature.Maximum.Value + '°F,' + ' Low: '
+      var dayThree = forecasts[2].Temperature.Maximum.Value + '°F' + '/ '
       + forecasts[2].Temperature.Minimum.Value + '°F';
-      var dayFour = 'High: ' + forecasts[3].Temperature.Maximum.Value + '°F,' + ' Low: '
+      var dayFour = forecasts[3].Temperature.Maximum.Value + '°F' + '/ '
       + forecasts[3].Temperature.Minimum.Value + '°F';
-      var dayFive = 'High: ' + forecasts[4].Temperature.Maximum.Value + '°F,' + ' Low: '
+      var dayFive = forecasts[4].Temperature.Maximum.Value + '°F' + '/ '
       + forecasts[4].Temperature.Minimum.Value + '°F';
 
+      //create table elements.
       var theWeather = document.createElement('div');
-      theWeather.textContent = dayOne;
+      var theTable = document.createElement('table');
+      theTable.setAttribute('class','table');
+      var theHead = document.createElement('thead');
+      var theHeaders = document.createElement('tr');
+      var theDate = document.createElement('th');
+      theDate.textContent = 'Day';
+      var theDayPhrase = document.createElement('th');
+      theDayPhrase.textContent = 'Description (Day)';
+      var theNightPhrase = document.createElement('th');
+      theNightPhrase.textContent = 'Description (Night)';
+      var theTemp = document.createElement('th');
+      theTemp.textContent = 'High/ Low';
+      var theBody = document.createElement('tbody');
+
+      var day1 = forecasts[0];
+      var items1 = tableData(day1);
+      var day2 = forecasts[1];
+      var items2 = tableData(day2);
+      var day3 = forecasts[2];
+      var items3 = tableData(day3);
+      var day4 = forecasts[3];
+      var items4 = tableData(day4);
+      var day5 = forecasts[4];
+      var items5 = tableData(day5);
+
+      theTable.appendChild(theHead);
+      theHead.appendChild(theDate);
+      theHead.appendChild(theTemp);
+      theHead.appendChild(theDayPhrase);
+      theHead.appendChild(theNightPhrase);
+      theTable.appendChild(theBody);
+      theBody.appendChild(items1);
+      theBody.appendChild(items2);
+      theBody.appendChild(items3);
+      theBody.appendChild(items4);
+      theBody.appendChild(items5);
+
+      theWeather.setAttribute('class','container');
+      theWeather.appendChild(theTable);
       weather.appendChild(theWeather);
+
       return weather;
     }
   }
+}
+
+function tableData(dayN) {
+
+    var theInfo = document.createElement('tr');
+    var day = document.createElement('td');
+    day.textContent = dayN.Date.slice(0,10);
+    var dayphrase = document.createElement('td');
+    var temp = document.createElement('td');
+    temp.textContent = dayN.Temperature.Maximum.Value + '°F' + '/ '
+    + dayN.Temperature.Minimum.Value + '°F';
+    dayphrase.textContent = dayN.Day.ShortPhrase;
+    var nightphrase = document.createElement('td');
+    nightphrase.textContent = dayN.Night.ShortPhrase;
+    theInfo.appendChild(temp);
+    theInfo.appendChild(day);
+    theInfo.appendChild(dayphrase);
+    theInfo.appendChild(nightphrase);
+
+    return theInfo;
 }
 
 function getPhotos() {
