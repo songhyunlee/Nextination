@@ -6,6 +6,7 @@ module.exports = {
   "tags": ["notre dame de paris", "eiffel tower", "montmartre"],
   "lat": 48.8566,
   "lon": 2.3522,
+  "owid": 6455259,
   "description": "Paris, France's capital, is a major European city and a global center for art, fashion, gastronomy and culture. Its picturesque 19th-century cityscape is crisscrossed by wide boulevards and the River Seine. Beyond such landmarks as the Eiffel Tower and the 12th-century, Gothic Notre-Dame cathedral, the city is known for its cafe culture, and designer boutiques along the Rue du Faubourg Saint-Honoré."
 }, {
   "name": "London",
@@ -14,6 +15,7 @@ module.exports = {
   "tags": ["london eye", "buckingham palace", "tower bridge"],
   "lat": 51.5074,
   "lon": 0.1278,
+  "owid": 2643741,
   "description": "London, England’s capital, set on the River Thames, is a 21st-century city with history stretching back to Roman times. At its centre stand the imposing Houses of Parliament, the iconic ‘Big Ben’ clock tower and Westminster Abbey, site of British monarch coronations. Across the Thames, the London Eye observation wheel provides panoramic views of the South Bank cultural complex, and the entire city."
 }, {
   "name": "Seoul",
@@ -22,6 +24,7 @@ module.exports = {
   "tags": ["namsan seoul tower", 'Gyeongbokgung', 'changdeokgung'],
   "lat": 37.5665,
   "lon": 126.9780,
+  "owid": 1835848,
   "description": "Seoul, the capital of South Korea, is a sprawling metropolis where hyper-modern skyscrapers, high-tech subways and pop culture meet Buddhist temples, palaces and street markets. Notable attractions include futuristic Dongdaemun Design Plaza, a convention hall with curving architecture and a rooftop park; Gyeongbokgung Palace, which once had more than 7,000 rooms; and Jogyesa Temple, site of centuries-old locust and pine trees."
 }, {
   "name": "San Francisco",
@@ -30,6 +33,7 @@ module.exports = {
   "tags": ["golden gate bridge", "san francisco", "alcatraz"],
   "lat": 37.7749,
   "lon": 122.4194,
+  "owid": 5391959,
   "description": "San Francisco, in northern California, is a city on the tip of a peninsula surrounded by the Pacific Ocean and San Francisco Bay. It's known for its hilly landscape, year-round fog, iconic Golden Gate Bridge, cable cars and colorful Victorian houses. The Financial District's Transamerica Pyramid is its most distinctive skyscraper. In the bay sits Alcatraz Island, site of the notorious former prison."
 }, {
   "name": "Tokyo",
@@ -38,6 +42,7 @@ module.exports = {
   "tags": ["tokyo skytree", "omotesando", "meiji shirine"],
   "lat": 35.6895,
   "lon": 139.6917,
+  "owid": 1850147,
   "description": "Tokyo, Japan’s bustling capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers and anime shops to cherry trees and temples. The opulent Meiji Shinto Shrine is known for its towering gate and surrounding forests. The Imperial Palace sits amid sprawling public gardens. The city is famed for its vibrant food scene, and its Shibuya and Harajuku districts are the heart of its trendy teen fashion scene."
 }, {
   "name": "New York City",
@@ -46,7 +51,7 @@ module.exports = {
   "tags": ["empire state building", "central park", "new york city"],
   "lat": 40.7128,
   "lon": 74.0059,
-  "woeid": 2459115,
+  "owid": 5106292,
   "description": "Home to the Empire State Building, Times Square, Statue of Liberty and other iconic sites, New York City is a fast-paced, globally influential center of art, culture, fashion and finance. The city’s 5 boroughs sit where the Hudson River meets the Atlantic Ocean, with the island borough of Manhattan at the Big Apple's core."
 }, {
   "name": "Cancun",
@@ -55,6 +60,7 @@ module.exports = {
   "tags": ["playa del carmen", "mexcico", "sol", "cancun"],
   "lat": [],
   "lon": [],
+  "owid": 3531673,
   "description": "Cancún, a Mexican city on the Yucatán Peninsula bordering the Caribbean Sea, is known for its beaches, numerous resorts and energetic nightlife. It’s composed of 2 distinct areas: the more traditional downtown area, El Centro, and Zona Hotelera, a long, beachfront strip of high-rise hotels, nightclubs, shops and restaurants. Cancun is also a famed destination for students during college’s spring break period."
 }, {
   "name": "Rio de Janeiro",

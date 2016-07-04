@@ -42,7 +42,8 @@ app.post('/search/:term', function(req, res) {
     url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search',
     qs: {
       api_key: '0a713463c24036458c7a2c7c3b731c51',
-      tags: req.body.tag,
+      text: req.body.tag,
+      tag: req.body.name,
       has_geo: 1,
       sort: "relevance",
       lat: req.body.lat,
@@ -57,9 +58,19 @@ app.post('/search/:term', function(req, res) {
   })
 });
 
-app.get('/weather/:term', function(req, res) {
+app.get('/location/:term', function(req, res) {
+  console.log(req.body.name);
+  var apiKey = '5d033e8f33f50aade44b10ce49e2f257u6IfjmqSdlmpYxTG7hOWZ6A4phtXdHcC'
   request({
-    url: 'http://xml.weather.com/forecastrss?' + 'w=' +req.body.woeid,
+    url: 'http://apidev.accuweather.com/locations/v1/search?q=' + req.body.name + '&apikey=' + apiKey,
+
+    // qs: {
+    //   text: req.body.name,
+    //   apikey: '5d033e8f33f50aade44b10ce49e2f257',
+    //   cache: true,
+    //   format: 'json',
+    //   nojsoncallback:"?"
+    // }
   }, function(error, response, body) {
     res.send(body);
   })

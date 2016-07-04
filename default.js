@@ -121,6 +121,7 @@ function getResults() {
     show(JSON.parse(xhr.responseText));
     response.data = JSON.parse(xhr.responseText);
     getPhotos();
+    getWeather();
   });
 }
 var response = [];
@@ -131,23 +132,29 @@ function getWeather() {
   var theForm = document.getElementById('search');
   var details = search(theForm);
 
-  var searchwoe = {
-    woeid: response.data[0].woeid
+  var searchinput = {
+    name: response.data[0].name
   }
 
   var request = new XMLHttpRequest();
-  request.open('GET', '/weather/:term');
+  request.open('GET', '/location/' + details.term);
   request.setRequestHeader('Content-Type', 'application/json');
-  request.send(JSON.stringify(searchwoe));
+  request.send(JSON.stringify(searchinput));
 
   request.addEventListener('load', function() {
-    var data = JSON.parse(request.response);
-    console.log(data);
+    var data = request.response;
+    // console.log(data);
   })
-  request.send();
+
+  var theWeather = document.createElement('div');
+  theWeather.textContent = 'weather';
+  weather.appendChild(theWeather);
   //****weather.appendChild(whatever that gets created in this function)
   //return weather
+  return weather;
 }
+
+
 
 function getPhotos() {
   clear(photos);
@@ -158,6 +165,7 @@ function getPhotos() {
     tag: response.data[0].tags,
     lat: response.data[0].lat,
     lon: response.data[0].lon,
+    name: response.data[0].name
   }
 
   var request = new XMLHttpRequest();
