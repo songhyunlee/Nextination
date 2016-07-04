@@ -120,7 +120,7 @@ function getResults() {
   xhr.addEventListener('load', function() {
     show(JSON.parse(xhr.responseText));
     response.data = JSON.parse(xhr.responseText);
-    getPhotos();
+    getPhotos(details.term, response.data[0].tags, response.data[0].lat, response.data[0].lon, response.data[0].name);
     getWeather(details.term, response.data[0].name, response.data[0].country);
   });
 }
@@ -165,17 +165,6 @@ function forecast(locationKey) {
     if (xhr.status >= 200 && xhr.status < 400) {
       var weatherData = JSON.parse(xhr.response);
       var forecasts = weatherData.DailyForecasts;
-
-      var dayOne = forecasts[0].Temperature.Maximum.Value + '°F' + '/ '
-      + forecasts[0].Temperature.Minimum.Value + '°F';
-      var dayTwo = forecasts[1].Temperature.Maximum.Value + '°F' + '/ '
-      + forecasts[1].Temperature.Minimum.Value + '°F';
-      var dayThree = forecasts[2].Temperature.Maximum.Value + '°F' + '/ '
-      + forecasts[2].Temperature.Minimum.Value + '°F';
-      var dayFour = forecasts[3].Temperature.Maximum.Value + '°F' + '/ '
-      + forecasts[3].Temperature.Minimum.Value + '°F';
-      var dayFive = forecasts[4].Temperature.Maximum.Value + '°F' + '/ '
-      + forecasts[4].Temperature.Minimum.Value + '°F';
 
       //create table elements.
       var theWeather = document.createElement('div');
@@ -246,20 +235,20 @@ function tableData(dayN) {
     return theInfo;
 }
 
-function getPhotos() {
+function getPhotos(term, tags, lat, lon, name) {
   clear(photos);
   var theForm = document.getElementById('search');
   var details = search(theForm);
 
   var searchterms = {
-    tag: response.data[0].tags,
-    lat: response.data[0].lat,
-    lon: response.data[0].lon,
-    name: response.data[0].name
+    tag: tags,
+    lat: lat,
+    lon: lon,
+    name: name
   }
 
   var request = new XMLHttpRequest();
-  request.open('POST', '/search/:term');
+  request.open('POST', '/search/' + term);
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify(searchterms));
 

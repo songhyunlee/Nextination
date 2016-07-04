@@ -62,7 +62,7 @@ app.post('/search/:term', function(req, res) {
 app.post('/location/:term', function(req, res) {
   var apiKey = 'u6IfjmqSdlmpYxTG7hOWZ6A4phtXdHcC';
   var locationUrl = 'http://dataservice.accuweather.com/locations/v1/search';
-
+  console.log(req.body)
   request({
     url: locationUrl,
     qs: {
@@ -80,7 +80,7 @@ app.post('/weather', function(req, res) {
   var apiKey = 'u6IfjmqSdlmpYxTG7hOWZ6A4phtXdHcC';
   var locationKey = req.body.key;
   var forecastUrl = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/' + locationKey + '?apikey=' + apiKey + '&details=true';
-  console.log(req.body);
+
   request({
     url: forecastUrl,
     qs: {
