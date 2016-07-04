@@ -57,13 +57,15 @@ app.post('/search/:term', function(req, res) {
   })
 });
 
-app.get('/weather', function(req, res) {
+app.get('/weather/:term', function(req, res) {
   request({
-    url: 'http://weather.yahooapis.com/forecastrss?' + 'w=' +req.body.woeid,
+    url: 'http://xml.weather.com/forecastrss?' + 'w=' +req.body.woeid,
   }, function(error, response, body) {
     res.send(body);
   })
 });
+
+
 
 app.listen(8080);
 

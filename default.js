@@ -136,7 +136,7 @@ function getWeather() {
   }
 
   var request = new XMLHttpRequest();
-  request.open('GET', '/weather');
+  request.open('GET', '/weather/:term');
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify(searchwoe));
 
@@ -144,7 +144,7 @@ function getWeather() {
     var data = JSON.parse(request.response);
     console.log(data);
   })
-
+  request.send();
   //****weather.appendChild(whatever that gets created in this function)
   //return weather
 }
