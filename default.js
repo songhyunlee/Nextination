@@ -137,8 +137,6 @@ function getWeather(term, name, country) {
     country: country,
   }
 
-  console.log(searchinput);
-
   var request = new XMLHttpRequest();
   request.open('POST', '/location/' + term);
   request.setRequestHeader('Content-Type', 'application/json');
@@ -151,11 +149,6 @@ function getWeather(term, name, country) {
       forecast(locationKey);
     }
   })
-
-  var theWeather = document.createElement('div');
-  theWeather.textContent = 'weather';
-  weather.appendChild(theWeather);
-  return weather;
 }
 
 function forecast(locationKey) {
@@ -169,7 +162,23 @@ function forecast(locationKey) {
 
   xhr.onload = function(){
     if (xhr.status >= 200 && xhr.status < 400) {
-      console.log(xhr.response)
+      var weatherData = JSON.parse(xhr.response);
+      var forecasts = weatherData.DailyForecasts;
+      var dayOne = 'High: ' + forecasts[0].Temperature.Maximum.Value + '°F,' + ' Low: '
+      + forecasts[0].Temperature.Minimum.Value + '°F';
+      var dayTwo = 'High: ' + forecasts[1].Temperature.Maximum.Value + '°F,' + ' Low: '
+      + forecasts[1].Temperature.Minimum.Value + '°F';
+      var dayThree = 'High: ' + forecasts[2].Temperature.Maximum.Value + '°F,' + ' Low: '
+      + forecasts[2].Temperature.Minimum.Value + '°F';
+      var dayFour = 'High: ' + forecasts[3].Temperature.Maximum.Value + '°F,' + ' Low: '
+      + forecasts[3].Temperature.Minimum.Value + '°F';
+      var dayFive = 'High: ' + forecasts[4].Temperature.Maximum.Value + '°F,' + ' Low: '
+      + forecasts[4].Temperature.Minimum.Value + '°F';
+
+      var theWeather = document.createElement('div');
+      theWeather.textContent = dayOne;
+      weather.appendChild(theWeather);
+      return weather;
     }
   }
 }
