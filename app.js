@@ -67,7 +67,7 @@ app.post('/location/:term', function(req, res) {
     url: locationUrl,
     qs: {
       apikey: apiKey,
-      q: req.body.name + ', ' + req.body.country,
+      q: req.body.name,
       format: 'json',
       cache: true,
     }

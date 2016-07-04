@@ -165,7 +165,6 @@ function forecast(locationKey) {
     if (xhr.status >= 200 && xhr.status < 400) {
       var weatherData = JSON.parse(xhr.response);
       var forecasts = weatherData.DailyForecasts;
-      console.log(forecasts);
 
       var dayOne = forecasts[0].Temperature.Maximum.Value + '°F' + '/ '
       + forecasts[0].Temperature.Minimum.Value + '°F';
@@ -217,7 +216,7 @@ function forecast(locationKey) {
       theBody.appendChild(items4);
       theBody.appendChild(items5);
 
-      theWeather.setAttribute('class','container');
+      theWeather.setAttribute('class','col-offset-md-1 col-md-8 weather');
       theWeather.appendChild(theTable);
       weather.appendChild(theWeather);
 
@@ -238,7 +237,7 @@ function tableData(dayN) {
     dayphrase.textContent = dayN.Day.ShortPhrase;
     var nightphrase = document.createElement('td');
     nightphrase.textContent = dayN.Night.ShortPhrase;
-    
+
     theInfo.appendChild(day);
     theInfo.appendChild(temp);
     theInfo.appendChild(dayphrase);

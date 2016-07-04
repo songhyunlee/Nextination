@@ -18,6 +18,12 @@ body{
   width: 70%
 }
 
+.col-md-8.weather{
+  margin-left: 60px;
+  margin-top: 30px;
+  width: 70%
+}
+
 ul.nav.nav-tabs {
   margin-top: 20px;
   width: 80%;
