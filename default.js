@@ -121,36 +121,38 @@ function getResults() {
     show(JSON.parse(xhr.responseText));
     response.data = JSON.parse(xhr.responseText);
     getPhotos();
-    getWeather();
+    getWeather(details.term, response.data[0].name);
+    console.log(details);
+    console.log(response.data[0].name);
   });
 }
 var response = [];
 // console.log(response.data[0].name);
 
 
-function getWeather() {
+function getWeather(term, name) {
   var theForm = document.getElementById('search');
   var details = search(theForm);
 
   var searchinput = {
-    name: response.data[0].name
+    name: name
   }
 
-  var request = new XMLHttpRequest();
-  request.open('GET', '/location/' + details.term);
-  request.setRequestHeader('Content-Type', 'application/json');
-  request.send(JSON.stringify(searchinput));
+  console.log(searchinput);
 
-  request.addEventListener('load', function() {
-    var data = request.response;
-    // console.log(data);
+  var newreq = new XMLHttpRequest();
+  newreq.open('POST', '/location/' + term);
+  newreq.setRequestHeader('Content-Type', 'application/json');
+  newreq.send(JSON.stringify(searchinput));
+
+  newreq.addEventListener('load', function() {
+    var data = JSON.parse(newreq.response);
+    console.log(data);
   })
 
   var theWeather = document.createElement('div');
   theWeather.textContent = 'weather';
   weather.appendChild(theWeather);
-  //****weather.appendChild(whatever that gets created in this function)
-  //return weather
   return weather;
 }
 

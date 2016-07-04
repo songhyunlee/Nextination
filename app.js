@@ -58,19 +58,19 @@ app.post('/search/:term', function(req, res) {
   })
 });
 
-app.get('/location/:term', function(req, res) {
-  console.log(req.body.name);
-  var apiKey = '5d033e8f33f50aade44b10ce49e2f257u6IfjmqSdlmpYxTG7hOWZ6A4phtXdHcC'
-  request({
-    url: 'http://apidev.accuweather.com/locations/v1/search?q=' + req.body.name + '&apikey=' + apiKey,
 
-    // qs: {
-    //   text: req.body.name,
-    //   apikey: '5d033e8f33f50aade44b10ce49e2f257',
-    //   cache: true,
-    //   format: 'json',
-    //   nojsoncallback:"?"
-    // }
+app.post('/location/:term', function(req, res) {
+  var apiKey = 'u6IfjmqSdlmpYxTG7hOWZ6A4phtXdHcC';
+  var locationUrl = 'http://dataservice.accuweather.com/locations/v1/search';
+  console.log(req.body)
+  request({
+    url: locationUrl,
+    qs: {
+      apikey: apiKey,
+      q: req.body.name,
+      format: 'json',
+      cache: true,
+    }
   }, function(error, response, body) {
     res.send(body);
   })
