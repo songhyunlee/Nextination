@@ -139,14 +139,17 @@ function getWeather(term, name, country) {
 
   console.log(searchinput);
 
-  var newreq = new XMLHttpRequest();
-  newreq.open('POST', '/location/' + term);
-  newreq.setRequestHeader('Content-Type', 'application/json');
-  newreq.send(JSON.stringify(searchinput));
+  var request = new XMLHttpRequest();
+  request.open('POST', '/location/' + term);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.send(JSON.stringify(searchinput));
 
-  newreq.addEventListener('load', function() {
-    var data = JSON.parse(newreq.response);
-    console.log(data);
+  request.addEventListener('load', function(data) {
+    if (request.status >= 200 && request.status < 400) {
+      var data = JSON.parse(request.response);
+      var locationKey = data[0].Key;
+      forecast(locationKey);
+    }
   })
 
   var theWeather = document.createElement('div');
@@ -155,7 +158,21 @@ function getWeather(term, name, country) {
   return weather;
 }
 
+function forecast(locationKey) {
+  var xhr = new XMLHttpRequest();
+  var input = {
+    key: locationKey
+  }
+  xhr.open('POST', '/weather');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify(input));
 
+  xhr.onload = function(){
+    if (xhr.status >= 200 && xhr.status < 400) {
+      console.log(xhr.response)
+    }
+  }
+}
 
 function getPhotos() {
   clear(photos);
