@@ -121,21 +121,20 @@ function getResults() {
     show(JSON.parse(xhr.responseText));
     response.data = JSON.parse(xhr.responseText);
     getPhotos();
-    getWeather(details.term, response.data[0].name);
-    console.log(details);
-    console.log(response.data[0].name);
+    getWeather(details.term, response.data[0].name, response.data[0].country);
   });
 }
 var response = [];
 // console.log(response.data[0].name);
 
 
-function getWeather(term, name) {
+function getWeather(term, name, country) {
   var theForm = document.getElementById('search');
   var details = search(theForm);
 
   var searchinput = {
-    name: name
+    name: name,
+    country: country,
   }
 
   console.log(searchinput);
