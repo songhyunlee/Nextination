@@ -238,8 +238,9 @@ function tableData(dayN) {
     dayphrase.textContent = dayN.Day.ShortPhrase;
     var nightphrase = document.createElement('td');
     nightphrase.textContent = dayN.Night.ShortPhrase;
-    theInfo.appendChild(temp);
+    
     theInfo.appendChild(day);
+    theInfo.appendChild(temp);
     theInfo.appendChild(dayphrase);
     theInfo.appendChild(nightphrase);
 
