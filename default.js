@@ -165,7 +165,7 @@ function forecast(locationKey) {
     if (xhr.status >= 200 && xhr.status < 400) {
       var weatherData = JSON.parse(xhr.response);
       var forecasts = weatherData.DailyForecasts;
-
+      console.log(forecasts);
       //create table elements.
       var theWeather = document.createElement('div');
       var theTable = document.createElement('table');

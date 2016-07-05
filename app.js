@@ -27,10 +27,10 @@ app.get('/search/:term', function(req, res) {
 
   cities.forEach(function(city){
 
-    if(city.name.toLowerCase().indexOf(req.params.term) !== -1) {
+    if(city.name.toLowerCase().indexOf(req.params.term.toLowerCase()) !== -1) {
       cityInfo.push(city);
     }
-    if (city.country.toLowerCase().indexOf(req.params.term) !== -1) {
+    if (city.country.toLowerCase().indexOf(req.params.term.toLowerCase()) !== -1) {
       cityInfo.push(city);
     }
   });
