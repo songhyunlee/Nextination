@@ -16,13 +16,13 @@ term.addEventListener('keydown', function(e) {
 
 var signinBtn = document.getElementById('signin-btn');
 signinBtn.addEventListener('click', function(e) {
-  hideButton('signup-btn', 'hide');
+  swap('two-btns','login-form');
 
 })
 
 var signupBtn = document.getElementById('signup-btn');
 signupBtn.addEventListener('click', function(e) {
-  swap('current', 'register');
+  swap('search-box', 'register');
 
   var accountBtn = document.getElementById('account-btn');
   accountBtn.addEventListener('click', function registration(newName, newEmail, newPw) {
@@ -44,7 +44,7 @@ signupBtn.addEventListener('click', function(e) {
     xhr.addEventListener('load', function(e){
       var accountResponse = JSON.parse(xhr.responseText);
     })
-    swap('current', 'search-box');
+    swap('register-box', 'search-box');
     alert("Registration success!");
   })
 })
@@ -144,19 +144,13 @@ function clear(area) {
 }
 
 function swap(current, next) {
- var theCurrent = document.getElementsByClassName(current)[0];
+ var theCurrent = document.getElementById(current);
  theCurrent.classList.remove('current');
  theCurrent.classList.add('hide');
 
  var theNext = document.getElementById(next);
  theNext.classList.add('current');
  theNext.classList.remove('hide');
-}
-
-function hideButton(current, hide) {
-  var theCurrent = document.getElementById(current);
-  theCurrent.classList.remove('current');
-  theCurrent.classList.add('hide');
 }
 
 function getResults() {

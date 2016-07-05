@@ -2,14 +2,22 @@ body{
   font-family: "Courier New", Courier, monospace
 }
 
+.navbar-default {
+  background-color: white;
+  border-color: white;
+}
 a.navbar-brand.nextination {
   margin-top:10px;
-  color: white;
+  color: black;
   font-size: 36px;
 }
 
 .navbar {
   border-radius: 0px;
+}
+
+.navbar-default .navbar-form {
+  border-color: white;
 }
 
 .navbar-right {
