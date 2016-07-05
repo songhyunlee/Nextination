@@ -14,10 +14,29 @@ term.addEventListener('keydown', function(e) {
   }
 });
 
-var signinBtn = document.getElementById('signin-btn');
-signinBtn.addEventListener('click', function(e) {
+var loginBtn = document.getElementById('login-btn');
+loginBtn.addEventListener('click', function(e){
   swap('two-btns','login-form');
 
+  var loginButton = document.getElementById('login-btn2');
+  loginButton.addEventListener('click', function login(useremail, userpassword) {
+
+    var useremail = document.getElementById('email').value;
+    var userpassword = document.getElementById('password').value;
+
+    var credentials = {
+      "email":useremail,
+      "password":userpassword
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/login');
+    xhr.send(JSON.stringify(credentials));
+
+    xhr.addEventListener('load', function(e){
+      console.log('here');
+    })
+  })
 })
 
 var signupBtn = document.getElementById('signup-btn');
@@ -33,7 +52,9 @@ signupBtn.addEventListener('click', function(e) {
     var newPw = document.getElementById('new-password').value;
 
     var newUserData = {
-      "name":newName, "email":newEmail, "password":newPw
+      "name":newName,
+      "email":newEmail,
+      "password":newPw
     }
 
     var xhr = new XMLHttpRequest();

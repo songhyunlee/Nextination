@@ -34,6 +34,28 @@ app.post('/register/:name', function(req, res){
   console.log(users);
 })
 
+app.post('/login', function(req, res){
+  console.log(req.body);
+  var email = req.body.useremail;
+  var password = req.body.userpassword;
+  function autenticate(users, email, password) {
+    var match = users.filter((person) => person.name == user);
+    if (match.length > 0) {
+      if (match[0].password === password) {
+        var userId = Date.now();
+        var session = {};
+        session.email = req.body.email;
+        session.id = userId;
+        res.cookie('userId','userId');
+      } else {
+        return false;
+      }
+    }
+  }
+
+  res.send()
+})
+
 app.get('/search/:term', function(req, res) {
   var cityInfo = [];
 
