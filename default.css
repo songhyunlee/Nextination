@@ -27,16 +27,18 @@ a.navbar-brand.nextination {
   width: 70%
 }
 
-.col-md-8.photos{
+.col-md-8{
   margin-left: 60px;
   margin-top: 30px;
   width: 70%
 }
 
-.col-md-8.weather{
-  margin-left: 60px;
-  margin-top: 30px;
-  width: 70%
+#register-box {
+  border-style: solid;
+  border-color: black;
+  border-width: thin;
+  padding: 20px;
+  margin-left: 100px;
 }
 
 ul.nav.nav-tabs {
@@ -55,6 +57,11 @@ ul.nav.nav-tabs {
   display: block;
 }
 
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 100%;
+    margin: auto;
+}
 
 /*.img {
   width: 400px;

@@ -5,21 +5,14 @@
   <title>NEXTINATION</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="default.css">
-  <style>
-    .carousel-inner > .item > img,
-    .carousel-inner > .item > a > img {
-        width: 100%;
-        margin: auto;
-    }
-  </style>
 </head>
 <body>
   <nav class="navbar navbar-inverse">
     <a class="navbar-brand nextination">NEXTINATION</a>
     <form class="navbar-form navbar-right">
       <div class="form-group">
-        <button type="button" class="btn btn-default navbar-btn">Sign Up</button>
-        <button type="button"class="btn btn-default navbar-btn">Sign In</button>
+        <button type="button" id="signup-btn" class="btn btn-default navbar-btn">Sign Up</button>
+        <button type="button" id="signin-btn" class="btn btn-default navbar-btn">Sign In</button>
       </div>
     </form>
   </nav>
@@ -28,22 +21,36 @@
       <div>
         <label for="term">Search:</label>
         <input type="text" id="term" onkeyup"inputSearch(event)"/>
-        <button id="my-button" class="btn btn-default" type="button">Go!</button>
+        <button id="search-btn" class="btn btn-default" type="button">Go!</button>
       </div>
     </form>
     <div id="results"></div>
-    <div id="photos" class='col-md-col-offset-md-1 col-md-8 photos'></div>
+    <div id="photos" class='col-md-offset-md-1 col-md-8 photos'></div>
+    <div id="register" class="hide">
+      <form class="form">
+        <div id="register-box" class="col-md-offset-md-1 col-md-8">
+          <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type=<input type="email" class="form-control" id="email">
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="password">
+          </div>
+          <button type="submit" id="account-btn" class="btn btn-default">Create Account</button>
+        </div>
+      </div>
+    </form>
   </div>
   <script src="default.js"></script>
-  <!-- <a href="https://www.yahoo.com/?ilc=401" target="_blank"> <img src="https://poweredby.yahoo.com/purple.png" width="134" height="29"/> </a> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
-      $('.carousel').carousel({
-        interval: 1200
-      })
-    });
+  $(document).ready(function() {
+    $('.carousel').carousel({
+      interval: 2000
+    })
+  });
   </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
-var myButton = document.getElementById('my-button');
-myButton.addEventListener('click', function () {
+var searchBtn = document.getElementById('search-btn');
+searchBtn.addEventListener('click', function () {
   clear(results);
   getResults();
 });
@@ -13,6 +13,11 @@ term.addEventListener('keydown', function(e) {
     getResults();
   }
 });
+
+var signupBtn = document.getElementById('signup-btn');
+signupBtn.addEventListener('click', function() {
+  reveal('hide', 'current');
+})
 
 function search(form) {
   var inputs = form.getElementsByTagName('input');
@@ -108,6 +113,12 @@ function clear(area) {
   }
 }
 
+function reveal(hide, current) {
+  var theHidden = document.getElementsByClassName(hide)[0];
+ theHidden.classList.remove('hide');
+ theHidden.classList.add('current');
+}
+
 function getResults() {
   var theForm = document.getElementById('search');
   var details = search(theForm);
@@ -124,9 +135,6 @@ function getResults() {
     getWeather(details.term, response.data[0].name, response.data[0].country);
   });
 }
-var response = [];
-// console.log(response.data[0].name);
-
 
 function getWeather(term, name, country) {
   var theForm = document.getElementById('search');
@@ -364,3 +372,5 @@ function getPhotos(term, tags, lat, lon, name) {
 var results = document.getElementById('results');
 var photos = document.createElement('div');
 var weather = document.createElement('div');
+var response = [];
+// console.log(response.data[0].name);
