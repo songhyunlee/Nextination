@@ -2,6 +2,7 @@ var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
 var cities = require('./cities.js').data;
+var users = require('./users.js').data;
 var jsonParser = bodyParser.json();
 
 var app = express();
@@ -20,6 +21,17 @@ app.get('/', function(req, res) {
 
 app.get('/default.js', function(req, res) {
   res.sendFile(__dirname + '/default.js');
+})
+
+app.post('/register/:name', function(req, res){
+  var newUser = {};
+  console.log(req.body);
+  newUser.name = req.body.name;
+  newUser.email = req.body.email;
+  newUser.password = req.body.password;
+  users.push(newUser);
+
+  res.send(newUser);
 })
 
 app.get('/search/:term', function(req, res) {

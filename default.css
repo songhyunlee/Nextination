@@ -33,6 +33,10 @@ a.navbar-brand.nextination {
   width: 70%
 }
 
+.btn-default {
+  font-weight: 700;
+}
+
 #register-box {
   border-style: solid;
   border-color: black;

@@ -15,15 +15,40 @@ term.addEventListener('keydown', function(e) {
 });
 
 var signupBtn = document.getElementById('signup-btn');
-signupBtn.addEventListener('click', function() {
+signupBtn.addEventListener('click', function(e) {
   swap('current', 'register');
+
+  var accountBtn = document.getElementById('account-btn');
+  accountBtn.addEventListener('click', function registration(newName, newEmail, newPw) {
+    e.preventDefault();
+
+    var newName = document.getElementById('new-name').value;
+    var newEmail = document.getElementById('new-email').value;
+    var newPw = document.getElementById('new-password').value;
+
+    var newUserData = {
+      "name":newName, "email":newEmail, "password":newPw
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST','/register/:name');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(newUserData));
+
+    xhr.addEventListener('load', function(e){
+      var accountResponse = JSON.parse(xhr.responseText);
+      console.log(accountResponse);
+    })
+    // swap('current', 'search-box');
+    // alert("Registration success!");
+  })
 })
 
-var accountBtn = document.getElementById('account-btn');
-accountBtn.addEventListener('click', function() {
-  swap('current', 'search-box');
-  alert("Registration success!");
-})
+// var accountBtn = document.getElementById('account-btn');
+// accountBtn.addEventListener('click', function(e) {
+//   swap('current', 'search-box');
+//   // alert("Registration success!");
+// })
 
 function search(form) {
   var inputs = form.getElementsByTagName('input');
