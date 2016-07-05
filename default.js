@@ -16,7 +16,13 @@ term.addEventListener('keydown', function(e) {
 
 var signupBtn = document.getElementById('signup-btn');
 signupBtn.addEventListener('click', function() {
-  reveal('hide', 'current');
+  swap('current', 'register');
+})
+
+var accountBtn = document.getElementById('account-btn');
+accountBtn.addEventListener('click', function() {
+  swap('current', 'search-box');
+  alert("Registration success!");
 })
 
 function search(form) {
@@ -113,10 +119,14 @@ function clear(area) {
   }
 }
 
-function reveal(hide, current) {
-  var theHidden = document.getElementsByClassName(hide)[0];
- theHidden.classList.remove('hide');
- theHidden.classList.add('current');
+function swap(current, next) {
+ var theCurrent = document.getElementsByClassName(current)[0];
+ theCurrent.classList.remove('current');
+ theCurrent.classList.add('hide');
+
+ var theNext = document.getElementById(next);
+ theNext.classList.add('current');
+ theNext.classList.remove('hide');
 }
 
 function getResults() {
