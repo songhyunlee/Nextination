@@ -25,13 +25,13 @@ app.get('/default.js', function(req, res) {
 
 app.post('/register/:name', function(req, res){
   var newUser = {};
-  console.log(req.body);
   newUser.name = req.body.name;
   newUser.email = req.body.email;
   newUser.password = req.body.password;
   users.push(newUser);
 
   res.send(newUser);
+  console.log(users);
 })
 
 app.get('/search/:term', function(req, res) {

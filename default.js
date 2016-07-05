@@ -14,6 +14,12 @@ term.addEventListener('keydown', function(e) {
   }
 });
 
+var signinBtn = document.getElementById('signin-btn');
+signinBtn.addEventListener('click', function(e) {
+  hideButton('signup-btn', 'hide');
+
+})
+
 var signupBtn = document.getElementById('signup-btn');
 signupBtn.addEventListener('click', function(e) {
   swap('current', 'register');
@@ -37,18 +43,11 @@ signupBtn.addEventListener('click', function(e) {
 
     xhr.addEventListener('load', function(e){
       var accountResponse = JSON.parse(xhr.responseText);
-      console.log(accountResponse);
     })
-    // swap('current', 'search-box');
-    // alert("Registration success!");
+    swap('current', 'search-box');
+    alert("Registration success!");
   })
 })
-
-// var accountBtn = document.getElementById('account-btn');
-// accountBtn.addEventListener('click', function(e) {
-//   swap('current', 'search-box');
-//   // alert("Registration success!");
-// })
 
 function search(form) {
   var inputs = form.getElementsByTagName('input');
@@ -152,6 +151,12 @@ function swap(current, next) {
  var theNext = document.getElementById(next);
  theNext.classList.add('current');
  theNext.classList.remove('hide');
+}
+
+function hideButton(current, hide) {
+  var theCurrent = document.getElementById(current);
+  theCurrent.classList.remove('current');
+  theCurrent.classList.add('hide');
 }
 
 function getResults() {
