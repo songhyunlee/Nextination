@@ -26,7 +26,7 @@ app.get('/default.js', function(req, res) {
 app.post('/register/:name', function(req, res){
   var newUser = {};
   newUser.name = req.body.name;
-  newUser.email = req.body.email;
+  newUser.username = req.body.username;
   newUser.password = req.body.password;
   users.push(newUser);
 
@@ -35,23 +35,20 @@ app.post('/register/:name', function(req, res){
 })
 
 app.post('/login', function(req, res){
-  console.log(req.body);
-  var email = req.body.useremail;
-  var password = req.body.userpassword;
-  function autenticate(users, email, password) {
-    var match = users.filter((person) => person.name == user);
-    if (match.length > 0) {
-      if (match[0].password === password) {
-        var userId = Date.now();
-        var session = {};
-        session.email = req.body.email;
-        session.id = userId;
-        res.cookie('userId','userId');
-      } else {
-        return false;
-      }
+  var username = req.body.username;
+  var password = req.body.password;
+  var currentUser = {};
+  users.forEach(function (user) {
+    if (user.username == username && user.password == password) {
+      currentUser.name = user.name;
+      currentUser.username = user.username;
+      currentUser.password = user.password;
+
+      var userId = Date.now();
+      currentUser.id = userId;
+      res.cookie('userId', userId);
     }
-  }
+  })
 
   res.send()
 })

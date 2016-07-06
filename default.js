@@ -19,18 +19,19 @@ loginBtn.addEventListener('click', function(e){
   swap('two-btns','login-form');
 
   var loginButton = document.getElementById('login-btn2');
-  loginButton.addEventListener('click', function login(useremail, userpassword) {
+  loginButton.addEventListener('click', function (){
 
-    var useremail = document.getElementById('email').value;
+    var username = document.getElementById('username').value;
     var userpassword = document.getElementById('password').value;
 
     var credentials = {
-      "email":useremail,
+      "username":username,
       "password":userpassword
     }
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/login');
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(credentials));
 
     xhr.addEventListener('load', function(e){
@@ -44,16 +45,16 @@ signupBtn.addEventListener('click', function(e) {
   swap('search-box', 'register');
 
   var accountBtn = document.getElementById('account-btn');
-  accountBtn.addEventListener('click', function registration(newName, newEmail, newPw) {
+  accountBtn.addEventListener('click', function registration(newName, newUsername, newPw) {
     e.preventDefault();
 
     var newName = document.getElementById('new-name').value;
-    var newEmail = document.getElementById('new-email').value;
+    var newUsername = document.getElementById('new-username').value;
     var newPw = document.getElementById('new-password').value;
 
     var newUserData = {
       "name":newName,
-      "email":newEmail,
+      "username":newUsername,
       "password":newPw
     }
 

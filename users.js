@@ -1,5 +1,5 @@
 module.exports = {
   data:[{
-    "name": "Song Lee", "email": "email@example.com", "password":"password"
+    "name": "Song Lee", "username": "song", "password":"password"
   }
 ]}
