@@ -35,7 +35,7 @@ loginBtn.addEventListener('click', function(e){
     xhr.send(JSON.stringify(credentials));
 
     xhr.addEventListener('load', function(e){
-      console.log('here');
+      homepage();
     })
   })
 })
@@ -173,6 +173,21 @@ function swap(current, next) {
  var theNext = document.getElementById(next);
  theNext.classList.add('current');
  theNext.classList.remove('hide');
+
+}
+
+function homepage() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/login/home');
+  xhr. send();
+
+  xhr.addEventListener('load', function() {
+    if (xhr.responseText) {
+      swap('login-form','user-home');
+      var user = document.getElementById('user');
+      // user.textContent = xhr.responseText;
+    }
+  })
 }
 
 function getResults() {

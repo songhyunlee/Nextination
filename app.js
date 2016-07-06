@@ -1,13 +1,15 @@
 var express = require('express');
 var request = require('request');
+var cookieParser = require('cookie-parser')();
 var bodyParser = require('body-parser');
 var cities = require('./cities.js').data;
 var users = require('./users.js').data;
 var jsonParser = bodyParser.json();
-
+var sessions = [];
 var app = express();
 
 app.use(jsonParser);
+app.use(cookieParser);
 
 app.use(function (req, res, next) {
   next();
@@ -47,10 +49,29 @@ app.post('/login', function(req, res){
       var userId = Date.now();
       currentUser.id = userId;
       res.cookie('userId', userId);
+
+      sessions.push(currentUser);
+      console.log(sessions);
     }
   })
-
   res.send()
+})
+
+app.post('/login/home', function(req, res){
+  console.log(req.headers)
+  var id = req.cookies.userId;
+  var matched = {};
+  sessions.forEach(function(session) {
+    if(session.id == id) {
+      matched.id = id;
+      console.log(matched);
+    }
+  })
+  if(matched.length > 0) {
+    res.send(matched[0].username);
+  } else {
+    res.send();
+  }
 })
 
 app.get('/search/:term', function(req, res) {
