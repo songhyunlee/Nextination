@@ -25,6 +25,10 @@ a.navbar-brand.nextination {
   margin-right: 5px;
 }
 
+#greeting {
+  margin: 25px;
+}
+
 #term {
   width: 80%;
 }

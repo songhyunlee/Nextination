@@ -58,27 +58,21 @@ app.post('/login', function(req, res){
 })
 
 app.post('/login/home', function(req, res){
-  console.log(req.headers)
   var id = req.cookies.userId;
   var matched = {};
   sessions.forEach(function(session) {
     if(session.id == id) {
       matched.id = id;
+      matched.name = session.name;
       console.log(matched);
     }
+    res.send(matched.name);
   })
-  if(matched.length > 0) {
-    res.send(matched[0].username);
-  } else {
-    res.send();
-  }
 })
 
 app.get('/search/:term', function(req, res) {
   var cityInfo = [];
-
   cities.forEach(function(city){
-
     if(city.name.toLowerCase().indexOf(req.params.term.toLowerCase()) !== -1) {
       cityInfo.push(city);
     }

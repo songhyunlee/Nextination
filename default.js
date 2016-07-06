@@ -179,13 +179,14 @@ function swap(current, next) {
 function homepage() {
   var xhr = new XMLHttpRequest();
   xhr.open('POST', '/login/home');
-  xhr. send();
+  xhr.send();
 
   xhr.addEventListener('load', function() {
     if (xhr.responseText) {
+      console.log('here')
       swap('login-form','user-home');
       var user = document.getElementById('user');
-      // user.textContent = xhr.responseText;
+      user.textContent = xhr.responseText;
     }
   })
 }
