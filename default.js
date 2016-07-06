@@ -196,7 +196,7 @@ function swap(current, next) {
 
 }
 
-function homepage() {
+function homepage() { 
   var xhr = new XMLHttpRequest();
   xhr.open('POST', '/login/home');
   xhr.send();
