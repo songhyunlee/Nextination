@@ -64,6 +64,15 @@ ul.nav.nav-tabs {
   margin-right: auto;
 }
 
+.cityname{
+  font-size: 30px;
+}
+
+.fa.fa-plane{
+  margin-left: 10px;
+  font-size: 25px;
+}
+
 .carousel {
   width: 550px;
   height: auto;

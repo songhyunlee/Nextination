@@ -1,7 +1,3 @@
-window.addEventListener('load', function() {
-  homepage();
-})
-
 var searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', function () {
   clear(results);
@@ -81,6 +77,10 @@ signupBtn.addEventListener('click', function(e) {
   })
 })
 
+// window.addEventListener('load', function() {
+//   homepage()
+// })
+
 function search(form) {
   var inputs = form.getElementsByTagName('input');
   var search = {};
@@ -93,16 +93,24 @@ function show(city) {
   for (var i = 0; i < city.length; i++) {
     var where = document.getElementById('results');
     var info = document.createElement('div');
-    var cityName = document.createElement('h2');
+    var citynameArea = document.createElement('div');
+    var cityName = document.createElement('span');
     var country = document.createElement('p');
     var localtime = document.createElement('p');
     var description = document.createElement('p');
+    var icon = document.createElement('i');
 
     info.setAttribute('class', 'col-offset-md-1 col-md-8 info');
     cityName.textContent = city[i].name;
+    cityName.setAttribute('class', 'cityname');
     country.textContent = city[i].country;
     localtime.textContent = "Local Time: " + new Date().toLocaleString('en-US', { timeZone: city[i].time })
     description.textContent = city[i].description;
+    icon.setAttribute('class', 'fa fa-plane');
+    icon.setAttribute('aria-hidden', 'true');
+
+    citynameArea.appendChild(cityName);
+    citynameArea.appendChild(icon);
 
     var theContainer = document.createElement('div');
     theContainer.setAttribute('class', 'container');
@@ -150,7 +158,7 @@ function show(city) {
     weathermenu.setAttribute('class', 'tab-pane fade');
     weathermenu.appendChild(weather);
 
-    info.appendChild(cityName);
+    info.appendChild(citynameArea);
     info.appendChild(country);
     info.appendChild(localtime);
     info.appendChild(description);
@@ -207,7 +215,6 @@ function homepage() {
 
   xhr.addEventListener('load', function() {
     if (xhr.responseText) {
-      console.log('here');
       swap('login-form','user-home');
       var user = document.getElementById('user');
       var matched = JSON.parse(xhr.responseText);
