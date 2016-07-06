@@ -4,6 +4,12 @@ searchBtn.addEventListener('click', function () {
   getResults();
 });
 
+var home = document.getElementById("home");
+home.addEventListener('click', function(e) {
+  showArea(searchbar);
+  hideArea(registration);
+})
+
 var term = document.getElementById("term")
 term.addEventListener('keydown', function(e) {
   if (e.keyCode === 13) {
@@ -125,10 +131,10 @@ function show(city) {
     var tabContent = document.createElement('div');
     tabContent.setAttribute('class', 'tab-content');
 
-    var home = document.createElement('div');
-    home.setAttribute('id', 'home');
-    home.setAttribute('class','tab-pane fade in active');
-    home.appendChild(info);
+    var basicinfo = document.createElement('div');
+    basicinfo.setAttribute('id', 'basicinfo');
+    basicinfo.setAttribute('class','tab-pane fade in active');
+    basicinfo.appendChild(info);
 
     var photomenu = document.createElement('div');
     photomenu.setAttribute('id', 'menu1');
@@ -149,7 +155,7 @@ function show(city) {
     theNav.appendChild(photoli);
     theNav.appendChild(weatherli);
     theContainer.appendChild(theNav);
-    tabContent.appendChild(home);
+    tabContent.appendChild(basicinfo);
     tabContent.appendChild(photomenu);
     tabContent.appendChild(weathermenu);
     theContainer.appendChild(tabContent);
@@ -162,6 +168,20 @@ function show(city) {
 function clear(area) {
   while(area.firstChild) {
     area.removeChild(area.firstChild);
+  }
+}
+
+function showArea (area) {
+  if(area.className == 'hide'){
+    area.classList.remove('hide');
+    area.classList.add('current');
+  }
+}
+
+function hideArea (area) {
+  if(area.className == 'current'){
+    area.classList.remove('current');
+    area.classList.add('hide');
   }
 }
 
@@ -183,10 +203,12 @@ function homepage() {
 
   xhr.addEventListener('load', function() {
     if (xhr.responseText) {
-      console.log('here')
+      console.log('here');
       swap('login-form','user-home');
       var user = document.getElementById('user');
       user.textContent = xhr.responseText;
+      hideArea(searchbar);
+      hideArea(registration);
     }
   })
 }
@@ -444,5 +466,7 @@ function getPhotos(term, tags, lat, lon, name) {
 var results = document.getElementById('results');
 var photos = document.createElement('div');
 var weather = document.createElement('div');
+var registration = document.getElementById('register');
+var searchbar = document.getElementById('search-box');
 var response = [];
 // console.log(response.data[0].name);
