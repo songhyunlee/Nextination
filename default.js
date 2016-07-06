@@ -1,3 +1,7 @@
+window.addEventListener('load', function() {
+  homepage();
+})
+
 var searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', function () {
   clear(results);
@@ -196,7 +200,7 @@ function swap(current, next) {
 
 }
 
-function homepage() { 
+function homepage() {
   var xhr = new XMLHttpRequest();
   xhr.open('POST', '/login/home');
   xhr.send();
@@ -206,9 +210,11 @@ function homepage() {
       console.log('here');
       swap('login-form','user-home');
       var user = document.getElementById('user');
-      user.textContent = xhr.responseText;
+      var matched = JSON.parse(xhr.responseText);
+      user.textContent = matched.name;
       hideArea(searchbar);
       hideArea(registration);
+      hideArea(signupBtns);
     }
   })
 }
@@ -350,7 +356,7 @@ function getPhotos(term, tags, lat, lon, name) {
   }
 
   var request = new XMLHttpRequest();
-  request.open('POST', '/search/' + term);
+  request.open('POST', '/photo/' + term);
   request.setRequestHeader('Content-Type', 'application/json');
   request.send(JSON.stringify(searchterms));
 
@@ -468,5 +474,6 @@ var photos = document.createElement('div');
 var weather = document.createElement('div');
 var registration = document.getElementById('register');
 var searchbar = document.getElementById('search-box');
+var signupBtns = document.getElementById('two-btns');
 var response = [];
 // console.log(response.data[0].name);

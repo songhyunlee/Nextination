@@ -45,7 +45,8 @@ app.post('/login', function(req, res){
       currentUser.name = user.name;
       currentUser.username = user.username;
       currentUser.password = user.password;
-
+      currentUser.nextcity = user.nextcity;
+      console.log(user);
       var userId = Date.now();
       currentUser.id = userId;
       res.cookie('userId', userId);
@@ -64,9 +65,10 @@ app.post('/login/home', function(req, res){
     if(session.id == id) {
       matched.id = id;
       matched.name = session.name;
+      matched.nextcity = session.nextcity;
       console.log(matched);
     }
-    res.send(matched.name);
+    res.send(matched);
   })
 })
 
@@ -83,7 +85,7 @@ app.get('/search/:term', function(req, res) {
   res.send(cityInfo);
 });
 
-app.post('/search/:term', function(req, res) {
+app.post('/photo/:term', function(req, res) {
   request({
     url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search',
     qs: {
