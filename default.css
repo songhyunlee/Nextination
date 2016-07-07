@@ -30,6 +30,11 @@ a.navbar-brand.nextination {
   font-size: 20px;
 }
 
+#homeicon{
+  margin-left: 5px;
+  font-size: 30px;
+}
+
 #term {
   width: 80%;
 }

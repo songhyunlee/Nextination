@@ -8,6 +8,7 @@ var home = document.getElementById("home");
 home.addEventListener('click', function(e) {
   showArea(searchbar);
   hideArea(registration);
+  clear(results);
 })
 
 var term = document.getElementById("term")
@@ -80,6 +81,28 @@ signupBtn.addEventListener('click', function(e) {
 // window.addEventListener('load', function() {
 //   homepage()
 // })
+
+var plane = document.getElementById('homeicon');
+plane.addEventListener('click', function(e) {
+  if(matchedUser) {
+    hideArea(searchbar);
+    hideArea(registration);
+    if(matchedUser.nextcity){
+      var heading = document.createElement('h3');
+      heading.textContent ='Your Next Destinations';
+      var destination = document.createElement('h4');
+      destination.textContent = matchedUser.nextcity;
+      clear(results);
+      results.appendChild(heading);
+      results.appendChild(destination);
+    } else {
+      var heading = document.createElement('h4');
+      heading.textContent = 'You have no bookmarked destinations.';
+      clear(results);
+      results.appendChild(heading);
+    }
+  }
+})
 
 function search(form) {
   var inputs = form.getElementsByTagName('input');
@@ -189,6 +212,8 @@ function show(city) {
       if(matchedUser){
         matchedUser.nextcity = bookmarked;
         console.log(matchedUser);
+      } else {
+        alert ('You need to be logged in to view your destinations!')
       }
     })
 
