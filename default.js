@@ -4,14 +4,6 @@ searchBtn.addEventListener('click', function () {
   getResults();
 });
 
-var home = document.getElementById("home");
-home.addEventListener('click', function(e) {
-  showArea(searchbar);
-  hideArea(registration);
-  clear(results);
-  clearFields('term');
-})
-
 var term = document.getElementById("term")
 term.addEventListener('keydown', function(e) {
   if (e.keyCode === 13) {
@@ -21,6 +13,14 @@ term.addEventListener('keydown', function(e) {
     getResults();
   }
 });
+
+var home = document.getElementById("home");
+home.addEventListener('click', function(e) {
+  showArea(searchbar);
+  hideArea(registration);
+  clear(results);
+  clearFields('term');
+})
 
 var loginBtn = document.getElementById('login-btn');
 loginBtn.addEventListener('click', function(e){
@@ -79,15 +79,12 @@ signupBtn.addEventListener('click', function(e) {
   })
 })
 
-// window.addEventListener('load', function() {
-//   homepage()
-// })
-
 var plane = document.getElementById('homeicon');
 plane.addEventListener('click', function(e) {
   if(matchedUser) {
     hideArea(searchbar);
     hideArea(registration);
+
     if(matchedUser.nextcity){
       var heading = document.createElement('h3');
       heading.textContent ='Your Next Destinations';
@@ -96,14 +93,20 @@ plane.addEventListener('click', function(e) {
       box.setAttribute('id', 'destination-box');
       var destinations =[];
       for (var i = 0; i < matchedUser.nextcity.length; i++) {
+        var listlink = document.createElement('a');
+        listlink.setAttribute('href','#');
         var destination = document.createElement('li');
         destination.textContent = matchedUser.nextcity[i];
-        console.log(destination);
-        box.appendChild(destination);
+        listlink.appendChild(destination);
+        box.appendChild(listlink);
       }
       clear(results);
       results.appendChild(heading);
       results.appendChild(box);
+      destination.addEventListener('click', function(e) {
+        clear(results);
+        getResults();
+      })
     } else {
       var box = document.createElement('div');
       box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
@@ -121,41 +124,6 @@ function search(form) {
   var search = {};
   search.term = inputs.term.value;
   return search;
-}
-
-function clear(area) {
-  while(area.firstChild) {
-    area.removeChild(area.firstChild);
-  }
-}
-
-function clearFields(id) {
-  document.getElementById(id).value = "";
-}
-
-function showArea (area) {
-  if(area.className == 'hide'){
-    area.classList.remove('hide');
-    area.classList.add('current');
-  }
-}
-
-function hideArea (area) {
-  if(area.className == 'current'){
-    area.classList.remove('current');
-    area.classList.add('hide');
-  }
-}
-
-function swap(current, next) {
-  var theCurrent = document.getElementById(current);
-  theCurrent.classList.remove('current');
-  theCurrent.classList.add('hide');
-
-  var theNext = document.getElementById(next);
-  theNext.classList.add('current');
-  theNext.classList.remove('hide');
-
 }
 
 function homepage() {
@@ -530,6 +498,41 @@ function getPhotos(term, tags, lat, lon, name) {
   })
   return photos;
 };
+
+function clear(area) {
+  while(area.firstChild) {
+    area.removeChild(area.firstChild);
+  }
+}
+
+function clearFields(id) {
+  document.getElementById(id).value = "";
+}
+
+function showArea (area) {
+  if(area.className == 'hide'){
+    area.classList.remove('hide');
+    area.classList.add('current');
+  }
+}
+
+function hideArea (area) {
+  if(area.className == 'current'){
+    area.classList.remove('current');
+    area.classList.add('hide');
+  }
+}
+
+function swap(current, next) {
+  var theCurrent = document.getElementById(current);
+  theCurrent.classList.remove('current');
+  theCurrent.classList.add('hide');
+
+  var theNext = document.getElementById(next);
+  theNext.classList.add('current');
+  theNext.classList.remove('hide');
+
+}
 
 var results = document.getElementById('results');
 var photos = document.createElement('div');
