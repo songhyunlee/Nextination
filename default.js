@@ -9,6 +9,7 @@ home.addEventListener('click', function(e) {
   showArea(searchbar);
   hideArea(registration);
   clear(results);
+  clearFields('term');
 })
 
 var term = document.getElementById("term")
@@ -126,6 +127,10 @@ function clear(area) {
   while(area.firstChild) {
     area.removeChild(area.firstChild);
   }
+}
+
+function clearFields(id) {
+  document.getElementById(id).value = "";
 }
 
 function showArea (area) {
