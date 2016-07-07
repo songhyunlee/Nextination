@@ -88,6 +88,76 @@ function search(form) {
   return search;
 }
 
+function clear(area) {
+  while(area.firstChild) {
+    area.removeChild(area.firstChild);
+  }
+}
+
+function showArea (area) {
+  if(area.className == 'hide'){
+    area.classList.remove('hide');
+    area.classList.add('current');
+  }
+}
+
+function hideArea (area) {
+  if(area.className == 'current'){
+    area.classList.remove('current');
+    area.classList.add('hide');
+  }
+}
+
+function swap(current, next) {
+ var theCurrent = document.getElementById(current);
+ theCurrent.classList.remove('current');
+ theCurrent.classList.add('hide');
+
+ var theNext = document.getElementById(next);
+ theNext.classList.add('current');
+ theNext.classList.remove('hide');
+
+}
+
+function homepage() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/login/home');
+  xhr.send();
+
+  xhr.addEventListener('load', function() {
+    if (xhr.responseText) {
+      matchedUser.push(JSON.parse(xhr.responseText));
+      console.log(matchedUser);
+      swap('login-form','user-home');
+      var user = document.getElementById('user');
+      var matched = JSON.parse(xhr.responseText);
+      user.textContent = matched.name;
+      hideArea(searchbar);
+      hideArea(registration);
+      hideArea(signupBtns);
+    }
+  })
+}
+
+function getResults() {
+  var theForm = document.getElementById('search');
+  var details = search(theForm);
+  var xhr = new XMLHttpRequest();
+
+  xhr.open('GET', '/search/' + details.term);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send();
+
+  xhr.addEventListener('load', function cityResults() {
+    show(JSON.parse(xhr.responseText));
+    response.data = JSON.parse(xhr.responseText);
+    getPhotos(details.term, response.data[0].tags, response.data[0].lat, response.data[0].lon, response.data[0].name);
+    getWeather(details.term, response.data[0].name, response.data[0].country);
+
+
+  });
+}
+
 function show(city) {
 
   for (var i = 0; i < city.length; i++) {
@@ -98,6 +168,7 @@ function show(city) {
     var country = document.createElement('p');
     var localtime = document.createElement('p');
     var description = document.createElement('p');
+    var iconlink = document.createElement('a');
     var icon = document.createElement('i');
 
     info.setAttribute('class', 'col-offset-md-1 col-md-8 info');
@@ -106,11 +177,20 @@ function show(city) {
     country.textContent = city[i].country;
     localtime.textContent = "Local Time: " + new Date().toLocaleString('en-US', { timeZone: city[i].time })
     description.textContent = city[i].description;
+    iconlink.setAttribute('href', '##');
     icon.setAttribute('class', 'fa fa-plane');
-    icon.setAttribute('aria-hidden', 'true');
 
+    iconlink.appendChild(icon);
     citynameArea.appendChild(cityName);
-    citynameArea.appendChild(icon);
+    citynameArea.appendChild(iconlink);
+
+    icon.addEventListener('click', function(e){
+      bookmarked.push(cityName.textContent);
+      if(matchedUser){
+        matchedUser.nextcity = bookmarked;
+        console.log(matchedUser);
+      }
+    })
 
     var theContainer = document.createElement('div');
     theContainer.setAttribute('class', 'container');
@@ -122,7 +202,7 @@ function show(city) {
     basicli.setAttribute('class', 'active');
     var basictoggle = document.createElement('a');
     basictoggle.setAttribute('data-toggle', 'tab');
-    basictoggle.setAttribute('href', '#home');
+    basictoggle.setAttribute('href', '#basicinfo');
     basictoggle.textContent = 'Basic Information';
     basicli.appendChild(basictoggle);
 
@@ -175,72 +255,6 @@ function show(city) {
 
   }
   return where
-}
-
-function clear(area) {
-  while(area.firstChild) {
-    area.removeChild(area.firstChild);
-  }
-}
-
-function showArea (area) {
-  if(area.className == 'hide'){
-    area.classList.remove('hide');
-    area.classList.add('current');
-  }
-}
-
-function hideArea (area) {
-  if(area.className == 'current'){
-    area.classList.remove('current');
-    area.classList.add('hide');
-  }
-}
-
-function swap(current, next) {
- var theCurrent = document.getElementById(current);
- theCurrent.classList.remove('current');
- theCurrent.classList.add('hide');
-
- var theNext = document.getElementById(next);
- theNext.classList.add('current');
- theNext.classList.remove('hide');
-
-}
-
-function homepage() {
-  var xhr = new XMLHttpRequest();
-  xhr.open('POST', '/login/home');
-  xhr.send();
-
-  xhr.addEventListener('load', function() {
-    if (xhr.responseText) {
-      swap('login-form','user-home');
-      var user = document.getElementById('user');
-      var matched = JSON.parse(xhr.responseText);
-      user.textContent = matched.name;
-      hideArea(searchbar);
-      hideArea(registration);
-      hideArea(signupBtns);
-    }
-  })
-}
-
-function getResults() {
-  var theForm = document.getElementById('search');
-  var details = search(theForm);
-  var xhr = new XMLHttpRequest();
-
-  xhr.open('GET', '/search/' + details.term);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send();
-
-  xhr.addEventListener('load', function() {
-    show(JSON.parse(xhr.responseText));
-    response.data = JSON.parse(xhr.responseText);
-    getPhotos(details.term, response.data[0].tags, response.data[0].lat, response.data[0].lon, response.data[0].name);
-    getWeather(details.term, response.data[0].name, response.data[0].country);
-  });
 }
 
 function getWeather(term, name, country) {
@@ -483,4 +497,6 @@ var registration = document.getElementById('register');
 var searchbar = document.getElementById('search-box');
 var signupBtns = document.getElementById('two-btns');
 var response = [];
+var bookmarked = [];
+var matchedUser = [];
 // console.log(response.data[0].name);
