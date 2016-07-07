@@ -90,12 +90,23 @@ plane.addEventListener('click', function(e) {
     if(matchedUser.nextcity){
       var heading = document.createElement('h3');
       heading.textContent ='Your Next Destinations';
-      var destination = document.createElement('h4');
-      destination.textContent = matchedUser.nextcity;
+      var box = document.createElement('div');
+      box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
+      box.setAttribute('id', 'destination-box');
+      var destinations =[];
+      for (var i = 0; i < matchedUser.nextcity.length; i++) {
+        var destination = document.createElement('li');
+        destination.textContent = matchedUser.nextcity[i];
+        console.log(destination);
+        box.appendChild(destination);
+      }
       clear(results);
       results.appendChild(heading);
-      results.appendChild(destination);
+      results.appendChild(box);
     } else {
+      var box = document.createElement('div');
+      box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
+      box.setAttribute('id', 'destination-box');
       var heading = document.createElement('h4');
       heading.textContent = 'You have no bookmarked destinations.';
       clear(results);
@@ -132,13 +143,13 @@ function hideArea (area) {
 }
 
 function swap(current, next) {
- var theCurrent = document.getElementById(current);
- theCurrent.classList.remove('current');
- theCurrent.classList.add('hide');
+  var theCurrent = document.getElementById(current);
+  theCurrent.classList.remove('current');
+  theCurrent.classList.add('hide');
 
- var theNext = document.getElementById(next);
- theNext.classList.add('current');
- theNext.classList.remove('hide');
+  var theNext = document.getElementById(next);
+  theNext.classList.add('current');
+  theNext.classList.remove('hide');
 
 }
 
@@ -370,23 +381,23 @@ function forecast(locationKey) {
 
 function tableData(dayN) {
 
-    var theInfo = document.createElement('tr');
-    var day = document.createElement('td');
-    day.textContent = dayN.Date.slice(0,10);
-    var dayphrase = document.createElement('td');
-    var temp = document.createElement('td');
-    temp.textContent = dayN.Temperature.Maximum.Value + '°F' + '/ '
-    + dayN.Temperature.Minimum.Value + '°F';
-    dayphrase.textContent = dayN.Day.ShortPhrase;
-    var nightphrase = document.createElement('td');
-    nightphrase.textContent = dayN.Night.ShortPhrase;
+  var theInfo = document.createElement('tr');
+  var day = document.createElement('td');
+  day.textContent = dayN.Date.slice(0,10);
+  var dayphrase = document.createElement('td');
+  var temp = document.createElement('td');
+  temp.textContent = dayN.Temperature.Maximum.Value + '°F' + '/ '
+  + dayN.Temperature.Minimum.Value + '°F';
+  dayphrase.textContent = dayN.Day.ShortPhrase;
+  var nightphrase = document.createElement('td');
+  nightphrase.textContent = dayN.Night.ShortPhrase;
 
-    theInfo.appendChild(day);
-    theInfo.appendChild(temp);
-    theInfo.appendChild(dayphrase);
-    theInfo.appendChild(nightphrase);
+  theInfo.appendChild(day);
+  theInfo.appendChild(temp);
+  theInfo.appendChild(dayphrase);
+  theInfo.appendChild(nightphrase);
 
-    return theInfo;
+  return theInfo;
 }
 
 function getPhotos(term, tags, lat, lon, name) {
