@@ -74,6 +74,8 @@ app.post('/login/home', function(req, res){
 
 app.get('/search/:term', function(req, res) {
   var cityInfo = [];
+  console.log(req.params.term);
+  console.log(req.body);
   cities.forEach(function(city){
     if(city.name.toLowerCase().indexOf(req.params.term.toLowerCase()) !== -1) {
       cityInfo.push(city);

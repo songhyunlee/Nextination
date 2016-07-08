@@ -1,16 +1,22 @@
 var searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', function () {
+  var theForm = document.getElementById('search');
+  var details = search(theForm);
+  var term = details.term;
   clear(results);
-  getResults();
+  getResults(term);
 });
 
 var term = document.getElementById("term")
 term.addEventListener('keydown', function(e) {
   if (e.keyCode === 13) {
+    var theForm = document.getElementById('search');
+    var details = search(theForm);
+    var term = details.term;
     e.preventDefault();
     clear(results);
     clear(photos);
-    getResults();
+    getResults(term);
   }
 });
 
@@ -91,7 +97,7 @@ plane.addEventListener('click', function(e) {
       var box = document.createElement('div');
       box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
       box.setAttribute('id', 'destination-box');
-      var destinations =[];
+
       for (var i = 0; i < matchedUser.nextcity.length; i++) {
         var listlink = document.createElement('a');
         listlink.setAttribute('href','#');
@@ -99,14 +105,21 @@ plane.addEventListener('click', function(e) {
         destination.textContent = matchedUser.nextcity[i];
         listlink.appendChild(destination);
         box.appendChild(listlink);
+
+        var destinations = [];
+        destinations.push(destination);
+
+        destinations.forEach(function(destination) {
+          destination.addEventListener('click', function(e) {
+            clear(results);
+            var newterm = destination.textContent;
+            getResults(newterm);
+          })
+        })
       }
       clear(results);
       results.appendChild(heading);
       results.appendChild(box);
-      destination.addEventListener('click', function(e) {
-        clear(results);
-        getResults();
-      })
     } else {
       var box = document.createElement('div');
       box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
@@ -145,23 +158,29 @@ function homepage() {
     }
   })
 }
+//
+// function getBookmarked(term){
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('GET,' '/bookmarked/' + term);
+//   xhr.setRequestHeader('Content-Type','application/json');
+//   xhr.send();
+//
+//   xhr.addEventListener('load', function )
+// }
 
-function getResults() {
-  var theForm = document.getElementById('search');
-  var details = search(theForm);
+function getResults(term) {
+
   var xhr = new XMLHttpRequest();
 
-  xhr.open('GET', '/search/' + details.term);
+  xhr.open('GET', '/search/' + term);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send();
 
   xhr.addEventListener('load', function cityResults() {
     show(JSON.parse(xhr.responseText));
     response.data = JSON.parse(xhr.responseText);
-    getPhotos(details.term, response.data[0].tags, response.data[0].lat, response.data[0].lon, response.data[0].name);
-    getWeather(details.term, response.data[0].name, response.data[0].country);
-
-
+    getPhotos(term, response.data[0].tags, response.data[0].lat, response.data[0].lon, response.data[0].name);
+    getWeather(term, response.data[0].name, response.data[0].country);
   });
 }
 
@@ -303,7 +322,7 @@ function forecast(locationKey) {
     if (xhr.status >= 200 && xhr.status < 400) {
       var weatherData = JSON.parse(xhr.response);
       var forecasts = weatherData.DailyForecasts;
-      console.log(forecasts);
+
       //create table elements.
       var theWeather = document.createElement('div');
       var theTable = document.createElement('table');
