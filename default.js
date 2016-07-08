@@ -1,18 +1,15 @@
 var searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', function () {
-  var theForm = document.getElementById('search');
-  var details = search(theForm);
-  var term = details.term;
+  var term = document.getElementById('term').value;
   clear(results);
+  clear(photos);
   getResults(term);
 });
 
-var term = document.getElementById("term")
-term.addEventListener('keydown', function(e) {
+var theTerm = document.getElementById("term")
+theTerm.addEventListener('keydown', function(e) {
   if (e.keyCode === 13) {
-    var theForm = document.getElementById('search');
-    var details = search(theForm);
-    var term = details.term;
+    var term = document.getElementById('term').value;
     e.preventDefault();
     clear(results);
     clear(photos);
@@ -132,12 +129,12 @@ plane.addEventListener('click', function(e) {
   }
 })
 
-function search(form) {
-  var inputs = form.getElementsByTagName('input');
-  var search = {};
-  search.term = inputs.term.value;
-  return search;
-}
+// function search(form) {
+//   var inputs = form.getElementsByTagName('input');
+//   var search = {};
+//   search.term = inputs.term.value;
+//   return search;
+// }
 
 function homepage() {
   var xhr = new XMLHttpRequest();
@@ -222,6 +219,7 @@ function show(city) {
 
     var theContainer = document.createElement('div');
     theContainer.setAttribute('class', 'container');
+    theContainer.setAttribute('id', city[i].name);
 
     var theNav = document.createElement('ul');
     theNav.setAttribute('class','nav nav-tabs');
@@ -230,21 +228,21 @@ function show(city) {
     basicli.setAttribute('class', 'active');
     var basictoggle = document.createElement('a');
     basictoggle.setAttribute('data-toggle', 'tab');
-    basictoggle.setAttribute('href', '#basicinfo');
+    basictoggle.setAttribute('href', '#basicinfo'+city[i].name);
     basictoggle.textContent = 'Basic Information';
     basicli.appendChild(basictoggle);
 
     var photoli = document.createElement('li');
     var phototoggle = document.createElement('a');
     phototoggle.setAttribute('data-toggle', 'tab');
-    phototoggle.setAttribute('href', '#menu1');
+    phototoggle.setAttribute('href', '#menu1'+ city[i].name);
     phototoggle.textContent = 'Photos';
     photoli.appendChild(phototoggle);
 
     var weatherli = document.createElement('li');
     var weathertoggle = document.createElement('a');
     weathertoggle.setAttribute('data-toggle', 'tab');
-    weathertoggle.setAttribute('href', '#menu2');
+    weathertoggle.setAttribute('href', '#menu2'+city[i].name);
     weathertoggle.textContent = 'Weather';
     weatherli.appendChild(weathertoggle);
 
@@ -252,17 +250,17 @@ function show(city) {
     tabContent.setAttribute('class', 'tab-content');
 
     var basicinfo = document.createElement('div');
-    basicinfo.setAttribute('id', 'basicinfo');
+    basicinfo.setAttribute('id', 'basicinfo'+city[i].name);
     basicinfo.setAttribute('class','tab-pane fade in active');
     basicinfo.appendChild(info);
 
     var photomenu = document.createElement('div');
-    photomenu.setAttribute('id', 'menu1');
+    photomenu.setAttribute('id', 'menu1'+city[i].name);
     photomenu.setAttribute('class', 'tab-pane fade');
     photomenu.appendChild(photos);
 
     var weathermenu = document.createElement('div');
-    weathermenu.setAttribute('id', 'menu2');
+    weathermenu.setAttribute('id', 'menu2'+city[i].name);
     weathermenu.setAttribute('class', 'tab-pane fade');
     weathermenu.appendChild(weather);
 
@@ -286,8 +284,7 @@ function show(city) {
 }
 
 function getWeather(term, name, country) {
-  var theForm = document.getElementById('search');
-  var details = search(theForm);
+  var term = document.getElementById('term').value;
 
   var searchinput = {
     name: name,
@@ -394,8 +391,7 @@ function tableData(dayN) {
 
 function getPhotos(term, tags, lat, lon, name) {
   clear(photos);
-  var theForm = document.getElementById('search');
-  var details = search(theForm);
+  var term = document.getElementById('term').value;
 
   var searchterms = {
     tag: tags,
