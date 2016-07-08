@@ -90,7 +90,7 @@ plane.addEventListener('click', function(e) {
 
     if(matchedUser.nextcity){
       var heading = document.createElement('h3');
-      heading.textContent ='Your Next Destinations';
+      heading.textContent ='Your Next Destinations: ';
       var box = document.createElement('div');
       box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
       box.setAttribute('id', 'destination-box');
@@ -99,6 +99,7 @@ plane.addEventListener('click', function(e) {
         var listlink = document.createElement('a');
         listlink.setAttribute('href','#');
         var destination = document.createElement('li');
+        destination.setAttribute('class', 'destinationlink');
         destination.textContent = matchedUser.nextcity[i];
         listlink.appendChild(destination);
         box.appendChild(listlink);
