@@ -18,11 +18,11 @@ app.use(function (req, res, next) {
 app.use(express.static('./'));
 
 app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/default.js', function(req, res) {
-  res.sendFile(__dirname + '/default.js');
+  res.sendFile(__dirname + '/public/default.js');
 })
 
 app.post('/register/:name', function(req, res){

@@ -1,0 +1,114 @@
+body{
+  font-family: "Courier New", Courier, monospace
+}
+
+.navbar-default {
+  background-color: white;
+  border-color: white;
+}
+a.navbar-brand.nextination {
+  margin-top:10px;
+  color: black;
+  font-size: 36px;
+}
+
+li.destinationlink {
+  font-size: 20px;
+}
+
+.navbar {
+  border-radius: 0px;
+}
+
+.navbar-default .navbar-form {
+  border-color: white;
+}
+
+.navbar-right {
+  float: right!important;
+  margin-right: 5px;
+}
+
+#greeting {
+  margin: 25px;
+  font-size: 20px;
+}
+
+#homeicon{
+  margin-left: 5px;
+  font-size: 30px;
+}
+
+#term {
+  width: 80%;
+}
+
+.col-md-8.info{
+  margin-left: 60px;
+  margin-top: 30px;
+  width: 70%
+}
+
+.col-md-8{
+  margin-left: 60px;
+  margin-top: 30px;
+  width: 70%
+}
+
+.btn-default {
+  font-weight: 700;
+}
+
+#register-box {
+  border-style: solid;
+  border-color: black;
+  border-width: thin;
+  padding: 20px;
+  margin-left: 100px;
+}
+
+#destination-box {
+  border-style: solid;
+  border-color: black;
+  border-width: thin;
+  padding: 20px;
+  margin-left: 100px;
+}
+
+ul.nav.nav-tabs {
+  margin-top: 20px;
+  width: 80%;
+  margin-left: 60px;
+  margin-right: auto;
+}
+
+.cityname{
+  font-size: 30px;
+}
+
+.fa.fa-plane{
+  margin-left: 10px;
+  font-size: 25px;
+}
+
+.carousel {
+  width: 550px;
+  height: auto;
+  margin-top: 20px;
+  margin-left: 20%;
+  margin-right: auto;
+  display: block;
+}
+
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 100%;
+    margin: auto;
+}
+
+/*.img {
+  width: 400px;
+  height: 400px;
+  margin: auto;
+  display: block;
+}*/

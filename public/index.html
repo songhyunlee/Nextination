@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>NEXTINATION</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="public/default.css">
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <a id="home" class="navbar-brand nextination" href="#">NEXTINATION</a>
+    <form id="two-btns" class="navbar-form navbar-right current">
+      <div class="form-group">
+        <button type="button" id="signup-btn" class="btn btn-default navbar-btn current">Sign Up</button>
+        <button type="button" id="login-btn" class="btn btn-default navbar-btn current">Log In</button>
+      </div>
+    </form>
+    <form id="login-form" class="navbar-form navbar-right hide">
+      <div class="form-group">
+        <input type="username" id="username" placeholder="username">
+        <input type="password" id="password" placeholder="password">
+        <button type="button" id="login-btn2" class="btn btn-default navbar-btn">Log In</button>
+      </div>
+    </form>
+    <form id="user-home" class="navbar-right hide">
+      <div id="greeting">
+        Welcome, <span id="user"></span>!
+        <a href='###'><i class="fa fa-plane" id="homeicon"></i></a>
+      </div>
+    </form>
+  </nav>
+  <div class="container">
+    <form id="search">
+      <div id="search-box" class="current">
+        <label for="term">Search:</label>
+        <input type="text" id="term" onkeyup"inputSearch(event)"/>
+        <button id="search-btn" class="btn btn-default" type="button">Go!</button>
+      </div>
+    </form>
+    <div id="results"></div>
+    <div id="photos" class='col-md-offset-md-1 col-md-8 photos'></div>
+    <div id="register" class="hide">
+      <form class="form">
+        <div id="register-box" class="col-md-offset-md-1 col-md-8">
+          <div class="form-group">
+            <label for="name">Your Name:</label>
+            <input type="text" class="form-control" id="new-name">
+          </div>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="new-username">
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="new-password">
+          </div>
+          <button type="submit" id="account-btn" class="btn btn-default">Create Account</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script src="default.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('.carousel').carousel({
+      interval: 2000
+    })
+  });
+  </script>
+</body>
+</html>
