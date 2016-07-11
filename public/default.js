@@ -130,13 +130,6 @@ plane.addEventListener('click', function(e) {
   }
 })
 
-// function search(form) {
-//   var inputs = form.getElementsByTagName('input');
-//   var search = {};
-//   search.term = inputs.term.value;
-//   return search;
-// }
-
 function homepage() {
   var xhr = new XMLHttpRequest();
   xhr.open('POST', '/login/home');
@@ -156,15 +149,6 @@ function homepage() {
     }
   })
 }
-//
-// function getBookmarked(term){
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET,' '/bookmarked/' + term);
-//   xhr.setRequestHeader('Content-Type','application/json');
-//   xhr.send();
-//
-//   xhr.addEventListener('load', function )
-// }
 
 function getResults(term) {
 
