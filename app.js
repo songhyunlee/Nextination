@@ -143,7 +143,7 @@ app.post('/weather', function(req, res) {
 });
 
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 
 // req.url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e297c1e760675b2c72bb5c0ceffd355f&lat=48.864716&lon=2.349014&format=json&auth_token=72157667638567973-faf171092cc109ee&api_sig=041b0238843840c5ce973ac5ea3ba0e4'
 //https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e297c1e760675b2c72bb5c0ceffd355f&tags=paris&format=json&auth_token=72157667638567973-faf171092cc109ee&api_sig=4caa8738acc7d76c03e1a2d83952b5f0
