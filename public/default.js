@@ -66,7 +66,7 @@ signupBtn.addEventListener('click', function(e) {
     }
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST','/register/:name');
+    xhr.open('POST','/register');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(newUser));
 

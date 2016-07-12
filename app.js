@@ -5,7 +5,8 @@ var jsonParser = bodyParser.json();
 var cities = require('./cities.js').data;
 var users = require('./users.js').data;
 var login = require('./routes/login.js');
-var sessions = [];
+var register = require('./routes/register.js');
+
 var app = express();
 
 app.use(jsonParser);
@@ -16,15 +17,7 @@ app.use(function (req, res, next) {
 
 app.use(express.static('./public'));
 
-app.post('/register/:name', function(req, res){
-  var newUser = {};
-  newUser.name = req.body.name;
-  newUser.username = req.body.username;
-  newUser.password = req.body.password;
-  users.push(newUser);
-  console.log(newUser);
-  res.send(newUser);
-})
+app.use('/register', register);
 
 app.use('/login', login);
 

@@ -26,7 +26,6 @@ login.post('/', function(req, res){
       res.cookie('userId', userId);
 
       sessions.push(currentUser);
-      console.log(sessions);
     }
   })
   res.send()
@@ -35,7 +34,6 @@ login.post('/', function(req, res){
 login.post('/home', function(req, res){
   var id = req.cookies.userId;
   var matched = {};
-  console.log(matched);
   sessions.forEach(function(session) {
     if(session.id == id) {
       matched.id = id;
