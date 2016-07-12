@@ -15,15 +15,7 @@ app.use(function (req, res, next) {
   next();
 })
 
-app.use(express.static('./'));
-
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-app.get('/default.js', function(req, res) {
-  res.sendFile(__dirname + '/public/default.js');
-})
+app.use(express.static('./public'));
 
 app.post('/register/:name', function(req, res){
   var newUser = {};
@@ -33,7 +25,6 @@ app.post('/register/:name', function(req, res){
   users.push(newUser);
 
   res.send(newUser);
-  console.log(users);
 })
 
 app.post('/login', function(req, res){
@@ -46,13 +37,12 @@ app.post('/login', function(req, res){
       currentUser.username = user.username;
       currentUser.password = user.password;
       currentUser.nextcity = user.nextcity;
-      console.log(user);
+
       var userId = Date.now();
       currentUser.id = userId;
       res.cookie('userId', userId);
 
       sessions.push(currentUser);
-      console.log(sessions);
     }
   })
   res.send()
@@ -66,7 +56,6 @@ app.post('/login/home', function(req, res){
       matched.id = id;
       matched.name = session.name;
       matched.nextcity = session.nextcity;
-      console.log(matched);
     }
     res.send(matched);
   })
@@ -108,7 +97,6 @@ app.post('/photo/:term', function(req, res) {
   })
 });
 
-
 app.post('/location/:term', function(req, res) {
   var apiKey = 'u6IfjmqSdlmpYxTG7hOWZ6A4phtXdHcC';
   var locationUrl = 'https://dataservice.accuweather.com/locations/v1/search';
@@ -144,6 +132,3 @@ app.post('/weather', function(req, res) {
 
 
 app.listen(process.env.PORT || 8080);
-
-// req.url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e297c1e760675b2c72bb5c0ceffd355f&lat=48.864716&lon=2.349014&format=json&auth_token=72157667638567973-faf171092cc109ee&api_sig=041b0238843840c5ce973ac5ea3ba0e4'
-//https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e297c1e760675b2c72bb5c0ceffd355f&tags=paris&format=json&auth_token=72157667638567973-faf171092cc109ee&api_sig=4caa8738acc7d76c03e1a2d83952b5f0
