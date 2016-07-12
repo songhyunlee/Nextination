@@ -6,6 +6,7 @@ var cities = require('./cities.js').data;
 var users = require('./users.js').data;
 var login = require('./routes/login.js');
 var register = require('./routes/register.js');
+var search = require('./routes/search.js');
 
 var app = express();
 
@@ -21,18 +22,7 @@ app.use('/register', register);
 
 app.use('/login', login);
 
-app.get('/search/:term', function(req, res) {
-  var cityInfo = [];
-  cities.forEach(function(city){
-    if(city.name.toLowerCase().indexOf(req.params.term.toLowerCase()) !== -1) {
-      cityInfo.push(city);
-    }
-    if (city.country.toLowerCase().indexOf(req.params.term.toLowerCase()) !== -1) {
-      cityInfo.push(city);
-    }
-  });
-  res.send(cityInfo);
-});
+app.use('/search', search);
 
 app.post('/photo/:term', function(req, res) {
   request({
