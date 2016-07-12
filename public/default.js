@@ -435,7 +435,7 @@ function getPhotos(term, tags, lat, lon, name) {
       image.setAttribute('class','img-responsive');
       var photoId = thePhoto[i].id;
       var owner = thePhoto[i].owner;
-      var imgURL = 'http://farm' + thePhoto[i].farm + '.staticflickr.com/' +
+      var imgURL = 'https://farm' + thePhoto[i].farm + '.staticflickr.com/' +
       thePhoto[i].server + '/' + thePhoto[i].id + '_' + thePhoto[i].secret + '.jpg';
       image.src = imgURL;
       images.push(image);
