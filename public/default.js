@@ -1,9 +1,7 @@
 var searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', function () {
   var term = document.getElementById('term').value;
-  clear(results);
-  clear(photos);
-  getResults(term);
+  doSearch(results, photos, term);
 });
 
 var theTerm = document.getElementById("term")
@@ -11,15 +9,13 @@ theTerm.addEventListener('keydown', function(e) {
   if (e.keyCode === 13) {
     var term = document.getElementById('term').value;
     e.preventDefault();
-    clear(results);
-    clear(photos);
-    getResults(term);
+    doSearch(results, photos, term);
   }
 });
 
 var home = document.getElementById("home");
 home.addEventListener('click', function(e) {
-  showArea(searchbar);
+  showArea(searchBar);
   hideArea(registration);
   clear(results);
   clearFields('term');
@@ -63,16 +59,16 @@ signupBtn.addEventListener('click', function(e) {
     var newUsername = document.getElementById('new-username').value;
     var newPw = document.getElementById('new-password').value;
 
-    var newUserData = {
-      "name":newName,
-      "username":newUsername,
-      "password":newPw
+    var newUser = {
+      "name":name,
+      "username": username,
+      "password": password
     }
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST','/register/:name');
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(newUserData));
+    xhr.send(JSON.stringify(newUser));
 
     xhr.addEventListener('load', function(e){
       var accountResponse = JSON.parse(xhr.responseText);
@@ -85,24 +81,24 @@ signupBtn.addEventListener('click', function(e) {
 var plane = document.getElementById('homeicon');
 plane.addEventListener('click', function(e) {
   if(matchedUser) {
-    hideArea(searchbar);
+    hideArea(searchBar);
     hideArea(registration);
 
-    if(matchedUser.nextcity){
+    if(matchedUser.nextCity){
       var heading = document.createElement('h3');
       heading.textContent ='Your Next Destinations: ';
       var box = document.createElement('div');
       box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
       box.setAttribute('id', 'destination-box');
 
-      for (var i = 0; i < matchedUser.nextcity.length; i++) {
-        var listlink = document.createElement('a');
-        listlink.setAttribute('href','#');
+      for (var i = 0; i < matchedUser.nextCity.length; i++) {
+        var listLink = document.createElement('a');
+        listLink.setAttribute('href','#');
         var destination = document.createElement('li');
         destination.setAttribute('class', 'destinationlink');
-        destination.textContent = matchedUser.nextcity[i];
-        listlink.appendChild(destination);
-        box.appendChild(listlink);
+        destination.textContent = matchedUser.nextCity[i];
+        listLink.appendChild(destination);
+        box.appendChild(listLink);
 
         var destinations = [];
         destinations.push(destination);
@@ -110,8 +106,8 @@ plane.addEventListener('click', function(e) {
         destinations.forEach(function(destination) {
           destination.addEventListener('click', function(e) {
             clear(results);
-            var newterm = destination.textContent;
-            getResults(newterm);
+            var newTerm = destination.textContent;
+            information(newTerm);
           })
         })
       }
@@ -143,14 +139,14 @@ function homepage() {
       var user = document.getElementById('user');
       var matched = JSON.parse(xhr.responseText);
       user.textContent = matched.name;
-      hideArea(searchbar);
+      hideArea(searchBar);
       hideArea(registration);
       hideArea(signupBtns);
     }
   })
 }
 
-function getResults(term) {
+function information(term) {
 
   var xhr = new XMLHttpRequest();
 
@@ -171,7 +167,7 @@ function show(city) {
   for (var i = 0; i < city.length; i++) {
     var where = document.getElementById('results');
     var info = document.createElement('div');
-    var citynameArea = document.createElement('div');
+    var cityNameArea = document.createElement('div');
     var cityName = document.createElement('span');
     var country = document.createElement('p');
     var localtime = document.createElement('p');
@@ -189,13 +185,13 @@ function show(city) {
     icon.setAttribute('class', 'fa fa-plane');
 
     iconlink.appendChild(icon);
-    citynameArea.appendChild(cityName);
-    citynameArea.appendChild(iconlink);
+    cityNameArea.appendChild(cityName);
+    cityNameArea.appendChild(iconlink);
 
     icon.addEventListener('click', function(e){
       bookmarked.push(cityName.textContent);
       if(matchedUser){
-        matchedUser.nextcity = bookmarked;
+        matchedUser.nextCity = bookmarked;
         console.log(matchedUser);
       } else {
         alert ('You need to be logged in to view your destinations!')
@@ -249,7 +245,7 @@ function show(city) {
     weathermenu.setAttribute('class', 'tab-pane fade');
     weathermenu.appendChild(weather);
 
-    info.appendChild(citynameArea);
+    info.appendChild(cityNameArea);
     info.appendChild(country);
     info.appendChild(localtime);
     info.appendChild(description);
@@ -534,11 +530,17 @@ function swap(current, next) {
 
 }
 
+function doSearch(results, photos, term) {
+  clear(results);
+  clear(photos);
+  information(term);
+}
+
 var results = document.getElementById('results');
 var photos = document.createElement('div');
 var weather = document.createElement('div');
 var registration = document.getElementById('register');
-var searchbar = document.getElementById('search-box');
+var searchBar = document.getElementById('search-box');
 var signupBtns = document.getElementById('two-btns');
 var response = [];
 var bookmarked = [];
