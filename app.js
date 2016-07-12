@@ -1,15 +1,14 @@
 var express = require('express');
 var request = require('request');
-var cookieParser = require('cookie-parser')();
 var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 var cities = require('./cities.js').data;
 var users = require('./users.js').data;
-var jsonParser = bodyParser.json();
+var login = require('./routes/login.js');
 var sessions = [];
 var app = express();
 
 app.use(jsonParser);
-app.use(cookieParser);
 
 app.use(function (req, res, next) {
   next();
@@ -23,48 +22,14 @@ app.post('/register/:name', function(req, res){
   newUser.username = req.body.username;
   newUser.password = req.body.password;
   users.push(newUser);
-
+  console.log(newUser);
   res.send(newUser);
 })
 
-app.post('/login', function(req, res){
-  var username = req.body.username;
-  var password = req.body.password;
-  var currentUser = {};
-  users.forEach(function (user) {
-    if (user.username == username && user.password == password) {
-      currentUser.name = user.name;
-      currentUser.username = user.username;
-      currentUser.password = user.password;
-      currentUser.nextcity = user.nextcity;
-
-      var userId = Date.now();
-      currentUser.id = userId;
-      res.cookie('userId', userId);
-
-      sessions.push(currentUser);
-    }
-  })
-  res.send()
-})
-
-app.post('/login/home', function(req, res){
-  var id = req.cookies.userId;
-  var matched = {};
-  sessions.forEach(function(session) {
-    if(session.id == id) {
-      matched.id = id;
-      matched.name = session.name;
-      matched.nextcity = session.nextcity;
-    }
-    res.send(matched);
-  })
-})
+app.use('/login', login);
 
 app.get('/search/:term', function(req, res) {
   var cityInfo = [];
-  console.log(req.params.term);
-  console.log(req.body);
   cities.forEach(function(city){
     if(city.name.toLowerCase().indexOf(req.params.term.toLowerCase()) !== -1) {
       cityInfo.push(city);

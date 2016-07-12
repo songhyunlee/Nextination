@@ -1,7 +1,7 @@
 var searchBtn = document.getElementById('search-btn');
 searchBtn.addEventListener('click', function () {
   var term = document.getElementById('term').value;
-  doSearch(results, photos, term);
+  showResults(results, photos, term);
 });
 
 var theTerm = document.getElementById("term")
@@ -9,7 +9,7 @@ theTerm.addEventListener('keydown', function(e) {
   if (e.keyCode === 13) {
     var term = document.getElementById('term').value;
     e.preventDefault();
-    doSearch(results, photos, term);
+    showResults(results, photos, term);
   }
 });
 
@@ -55,9 +55,9 @@ signupBtn.addEventListener('click', function(e) {
   accountBtn.addEventListener('click', function registration(newName, newUsername, newPw) {
     e.preventDefault();
 
-    var newName = document.getElementById('new-name').value;
-    var newUsername = document.getElementById('new-username').value;
-    var newPw = document.getElementById('new-password').value;
+    var name = document.getElementById('new-name').value;
+    var username = document.getElementById('new-username').value;
+    var password = document.getElementById('new-password').value;
 
     var newUser = {
       "name":name,
@@ -170,29 +170,28 @@ function show(city) {
     var cityNameArea = document.createElement('div');
     var cityName = document.createElement('span');
     var country = document.createElement('p');
-    var localtime = document.createElement('p');
+    var localTime = document.createElement('p');
     var description = document.createElement('p');
-    var iconlink = document.createElement('a');
+    var iconLink = document.createElement('a');
     var icon = document.createElement('i');
 
     info.setAttribute('class', 'col-offset-md-1 col-md-8 info');
     cityName.textContent = city[i].name;
     cityName.setAttribute('class', 'cityname');
     country.textContent = city[i].country;
-    localtime.textContent = "Local Time: " + new Date().toLocaleString('en-US', { timeZone: city[i].time })
+    localTime.textContent = "Local Time: " + new Date().toLocaleString('en-US', { timeZone: city[i].time })
     description.textContent = city[i].description;
-    iconlink.setAttribute('href', '##');
+    iconLink.setAttribute('href', '##');
     icon.setAttribute('class', 'fa fa-plane');
 
-    iconlink.appendChild(icon);
+    iconLink.appendChild(icon);
     cityNameArea.appendChild(cityName);
-    cityNameArea.appendChild(iconlink);
+    cityNameArea.appendChild(iconLink);
 
     icon.addEventListener('click', function(e){
       bookmarked.push(cityName.textContent);
       if(matchedUser){
         matchedUser.nextCity = bookmarked;
-        console.log(matchedUser);
       } else {
         alert ('You need to be logged in to view your destinations!')
       }
@@ -247,7 +246,7 @@ function show(city) {
 
     info.appendChild(cityNameArea);
     info.appendChild(country);
-    info.appendChild(localtime);
+    info.appendChild(localTime);
     info.appendChild(description);
 
     theNav.appendChild(basicli);
@@ -530,7 +529,7 @@ function swap(current, next) {
 
 }
 
-function doSearch(results, photos, term) {
+function showResults(results, photos, term) {
   clear(results);
   clear(photos);
   information(term);
