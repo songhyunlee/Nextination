@@ -6,7 +6,7 @@ var register = express.Router();
 
 register.use(jsonParser);
 
-register.post('/', function(req, res){
+register.post('/:name', function(req, res){
   var newUser = {};
   newUser.name = req.body.name;
   newUser.username = req.body.username;

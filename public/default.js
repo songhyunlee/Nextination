@@ -66,7 +66,7 @@ signupBtn.addEventListener('click', function(e) {
     }
 
     var xhr = new XMLHttpRequest();
-    xhr.open('POST','/register');
+    xhr.open('POST','/register/:name');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(newUser));
 
@@ -199,7 +199,6 @@ function show(city) {
 
     var theContainer = document.createElement('div');
     theContainer.setAttribute('class', 'container');
-    theContainer.setAttribute('id', city[i].name);
 
     var theNav = document.createElement('ul');
     theNav.setAttribute('class','nav nav-tabs');
@@ -208,21 +207,21 @@ function show(city) {
     basicli.setAttribute('class', 'active');
     var basictoggle = document.createElement('a');
     basictoggle.setAttribute('data-toggle', 'tab');
-    basictoggle.setAttribute('href', '#basicinfo'+city[i].name);
+    basictoggle.setAttribute('href', '#basicinfo');
     basictoggle.textContent = 'Basic Information';
     basicli.appendChild(basictoggle);
 
     var photoli = document.createElement('li');
     var phototoggle = document.createElement('a');
     phototoggle.setAttribute('data-toggle', 'tab');
-    phototoggle.setAttribute('href', '#menu1'+ city[i].name);
+    phototoggle.setAttribute('href', '#menu1');
     phototoggle.textContent = 'Photos';
     photoli.appendChild(phototoggle);
 
     var weatherli = document.createElement('li');
     var weathertoggle = document.createElement('a');
     weathertoggle.setAttribute('data-toggle', 'tab');
-    weathertoggle.setAttribute('href', '#menu2'+city[i].name);
+    weathertoggle.setAttribute('href', '#menu2');
     weathertoggle.textContent = 'Weather';
     weatherli.appendChild(weathertoggle);
 
@@ -230,17 +229,17 @@ function show(city) {
     tabContent.setAttribute('class', 'tab-content');
 
     var basicinfo = document.createElement('div');
-    basicinfo.setAttribute('id', 'basicinfo'+city[i].name);
+    basicinfo.setAttribute('id', 'basicinfo');
     basicinfo.setAttribute('class','tab-pane fade in active');
     basicinfo.appendChild(info);
 
     var photomenu = document.createElement('div');
-    photomenu.setAttribute('id', 'menu1'+city[i].name);
+    photomenu.setAttribute('id', 'menu1');
     photomenu.setAttribute('class', 'tab-pane fade');
     photomenu.appendChild(photos);
 
     var weathermenu = document.createElement('div');
-    weathermenu.setAttribute('id', 'menu2'+city[i].name);
+    weathermenu.setAttribute('id', 'menu2');
     weathermenu.setAttribute('class', 'tab-pane fade');
     weathermenu.appendChild(weather);
 
