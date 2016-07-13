@@ -17,12 +17,14 @@ https://nextination.herokuapp.com/
 
 **Node.js Dependencies**
 * express
+* request
 * body-parser
 * cookie-parser
 * nodemon
 
 **Frameworks and Libraries**
 * Bootstrap
+* jQuery
 
 ![Alt text](https://raw.githubusercontent.com/songhyunlee/Nextination/master/screenshots/readme.png "search")
 ![Alt text](https://raw.githubusercontent.com/songhyunlee/Nextination/master/screenshots/readme4.png "photos")
