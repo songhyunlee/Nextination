@@ -108,7 +108,7 @@ function homepage() {
   })
 }
 
-function information(term) {
+function search(term) {
   var xhr = new XMLHttpRequest();
 
   xhr.open('GET', '/search/' + term);
@@ -347,111 +347,117 @@ function getPhotos(term, tags, lat, lon, name) {
   request.addEventListener('load', function() {
     var data = JSON.parse(request.response);
     var thePhoto = data.photos.photo;
-    var theCarousel = document.createElement('div');
-    theCarousel.setAttribute('class', 'carousel slide');
-    theCarousel.setAttribute('data-ride', 'carousel');
-    theCarousel.setAttribute('id', 'myCarousel');
-
-    var theList = document.createElement('ol');
-    theList.setAttribute('class', 'carousel-indicators');
-
-    var theActive = document.createElement('li');
-    theActive.setAttribute('data-target', '#myCarousel');
-    theActive.setAttribute('data-slide-to', '0');
-    theActive.setAttribute('class', 'item0 active');
-
-    var theItems = [];
-    var one = document.createElement('li');
-    one.setAttribute('data-target', '#myCarousel');
-    one.setAttribute('data-slide-to', '1');
-    var two = document.createElement('li');
-    two.setAttribute('data-target', '#myCarousel');
-    two.setAttribute('data-slide-to', '2');
-    var three = document.createElement('li');
-    three.setAttribute('data-target', '#myCarousel');
-    three.setAttribute('data-slide-to', '3');
-    var four = document.createElement('li');
-    four.setAttribute('data-target', '#myCarousel');
-    four.setAttribute('data-slide-to', '4');
-
-    theItems.push(one, two, three, four);
-
-    var theInner = document.createElement('div');
-    theInner.setAttribute('class', 'carousel-inner');
-    theInner.setAttribute('role', 'listbox');
-
-    var active = document.createElement('div');
-    active.setAttribute('class', 'item active');
-
-    var images = [];
-    for (var i = 0; i < thePhoto.length; i++) {
-      var image = document.createElement('img');
-      image.setAttribute('class','img-responsive');
-      var photoId = thePhoto[i].id;
-      var owner = thePhoto[i].owner;
-      var imgURL = 'https://farm' + thePhoto[i].farm + '.staticflickr.com/' +
-      thePhoto[i].server + '/' + thePhoto[i].id + '_' + thePhoto[i].secret + '.jpg';
-      image.src = imgURL;
-      images.push(image);
-    }
-
-    var inactiveItems = [];
-    for (var i = 0; i < images.length; i++) {
-      if(i === 0) {
-        active.appendChild(images[0]);
-        theInner.appendChild(active);
-      } else {
-        var inactive = document.createElement('div');
-        inactive.setAttribute('class', 'item');
-        inactive.appendChild(images[i]);
-        inactiveItems.push(inactive);
-      }
-    }
-
-    //left and right arrow buttons
-    var left = document.createElement('a');
-    left.setAttribute('class', 'left carousel-control');
-    left.setAttribute('href', '#myCarousel');
-    left.setAttribute('role', 'button');
-    left.setAttribute('data-slide', 'prev');
-    var leftIcon = document.createElement('span');
-    leftIcon.setAttribute('class', 'glyphicon glyphicon-chevron-left');
-    leftIcon.setAttribute('aria-hidden', 'true');
-    var leftLabel = document.createElement('span');
-    leftLabel.setAttribute('class','sr-only');
-    leftLabel.textContent = 'Previous';
-    left.appendChild(leftIcon);
-    left.appendChild(leftLabel);
-
-    var right = document.createElement('a');
-    right.setAttribute('class', 'right carousel-control');
-    right.setAttribute('href', '#myCarousel');
-    right.setAttribute('role', 'button');
-    right.setAttribute('data-slide', 'next');
-    var rightIcon = document.createElement('span');
-    rightIcon.setAttribute('class', 'glyphicon glyphicon-chevron-right');
-    rightIcon.setAttribute('aria-hidden', 'true');
-    var rightLabel = document.createElement('span');
-    rightLabel.setAttribute('class','sr-only');
-    rightLabel.textContent = 'Next';
-    right.appendChild(rightIcon);
-    right.appendChild(rightLabel);
-
-    inactiveItems.forEach(function(inactiveItem) {
-      theInner.appendChild(inactiveItem)
-    });
-    theList.appendChild(theActive);
-    theItems.forEach(function(theItem) {
-      theList.appendChild(theItem)
-    });
-    theCarousel.appendChild(theList);
-    theCarousel.appendChild(theInner);
-    theCarousel.appendChild(left);
-    theCarousel.appendChild(right);
+    var theCarousel = carouselItems(thePhoto);
     photos.appendChild(theCarousel);
   })
   return photos;
 };
+
+function carouselItems(thePhoto) {
+  var theCarousel = document.createElement('div');
+  theCarousel.setAttribute('class', 'carousel slide');
+  theCarousel.setAttribute('data-ride', 'carousel');
+  theCarousel.setAttribute('id', 'myCarousel');
+
+  var theList = document.createElement('ol');
+  theList.setAttribute('class', 'carousel-indicators');
+
+  var theActive = document.createElement('li');
+  theActive.setAttribute('data-target', '#myCarousel');
+  theActive.setAttribute('data-slide-to', '0');
+  theActive.setAttribute('class', 'item0 active');
+
+  var theItems = [];
+  var one = document.createElement('li');
+  one.setAttribute('data-target', '#myCarousel');
+  one.setAttribute('data-slide-to', '1');
+  var two = document.createElement('li');
+  two.setAttribute('data-target', '#myCarousel');
+  two.setAttribute('data-slide-to', '2');
+  var three = document.createElement('li');
+  three.setAttribute('data-target', '#myCarousel');
+  three.setAttribute('data-slide-to', '3');
+  var four = document.createElement('li');
+  four.setAttribute('data-target', '#myCarousel');
+  four.setAttribute('data-slide-to', '4');
+
+  theItems.push(one, two, three, four);
+
+  var theInner = document.createElement('div');
+  theInner.setAttribute('class', 'carousel-inner');
+  theInner.setAttribute('role', 'listbox');
+
+  var active = document.createElement('div');
+  active.setAttribute('class', 'item active');
+
+  var images = [];
+  for (var i = 0; i < thePhoto.length; i++) {
+    var image = document.createElement('img');
+    image.setAttribute('class','img-responsive');
+    var photoId = thePhoto[i].id;
+    var owner = thePhoto[i].owner;
+    var imgURL = 'https://farm' + thePhoto[i].farm + '.staticflickr.com/' +
+    thePhoto[i].server + '/' + thePhoto[i].id + '_' + thePhoto[i].secret + '.jpg';
+    image.src = imgURL;
+    images.push(image);
+  }
+
+  var inactiveItems = [];
+  for (var i = 0; i < images.length; i++) {
+    if(i === 0) {
+      active.appendChild(images[0]);
+      theInner.appendChild(active);
+    } else {
+      var inactive = document.createElement('div');
+      inactive.setAttribute('class', 'item');
+      inactive.appendChild(images[i]);
+      inactiveItems.push(inactive);
+    }
+  }
+
+  //left and right arrow buttons
+  var left = document.createElement('a');
+  left.setAttribute('class', 'left carousel-control');
+  left.setAttribute('href', '#myCarousel');
+  left.setAttribute('role', 'button');
+  left.setAttribute('data-slide', 'prev');
+  var leftIcon = document.createElement('span');
+  leftIcon.setAttribute('class', 'glyphicon glyphicon-chevron-left');
+  leftIcon.setAttribute('aria-hidden', 'true');
+  var leftLabel = document.createElement('span');
+  leftLabel.setAttribute('class','sr-only');
+  leftLabel.textContent = 'Previous';
+  left.appendChild(leftIcon);
+  left.appendChild(leftLabel);
+
+  var right = document.createElement('a');
+  right.setAttribute('class', 'right carousel-control');
+  right.setAttribute('href', '#myCarousel');
+  right.setAttribute('role', 'button');
+  right.setAttribute('data-slide', 'next');
+  var rightIcon = document.createElement('span');
+  rightIcon.setAttribute('class', 'glyphicon glyphicon-chevron-right');
+  rightIcon.setAttribute('aria-hidden', 'true');
+  var rightLabel = document.createElement('span');
+  rightLabel.setAttribute('class','sr-only');
+  rightLabel.textContent = 'Next';
+  right.appendChild(rightIcon);
+  right.appendChild(rightLabel);
+
+  inactiveItems.forEach(function(inactiveItem) {
+    theInner.appendChild(inactiveItem)
+  });
+  theList.appendChild(theActive);
+  theItems.forEach(function(theItem) {
+    theList.appendChild(theItem)
+  });
+  theCarousel.appendChild(theList);
+  theCarousel.appendChild(theInner);
+  theCarousel.appendChild(left);
+  theCarousel.appendChild(right);
+
+  return theCarousel;
+}
 
 function bookmarks(nextCity) {
   if (nextCity) {
@@ -477,7 +483,7 @@ function bookmarks(nextCity) {
         destination.addEventListener('click', function(e) {
           clear(results);
           var newTerm = destination.textContent;
-          information(newTerm);
+          search(newTerm);
         })
       })
     }
@@ -531,13 +537,12 @@ function swap(current, next) {
   var theNext = document.getElementById(next);
   theNext.classList.add('current');
   theNext.classList.remove('hide');
-
 }
 
 function showResults(results, photos, term) {
   clear(results);
   clear(photos);
-  information(term);
+  search(term);
 }
 
 var results = document.getElementById('results');
