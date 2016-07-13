@@ -115,12 +115,148 @@ function search(term) {
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send();
 
-  xhr.addEventListener('load', function cityResults() {
-    show(JSON.parse(xhr.responseText));
-    response.data = JSON.parse(xhr.responseText);
-    getPhotos(term, response.data[0].tags, response.data[0].lat, response.data[0].lon, response.data[0].name);
-    getWeather(term, response.data[0].name, response.data[0].country);
+  xhr.addEventListener('load', function() {
+    var responseData = JSON.parse(xhr.responseText);
+    show(responseData);
+    getPhotos(term, responseData[0].tags, responseData[0].lat, responseData[0].lon, responseData[0].name);
+    getWeather(term, responseData[0].name, responseData[0].country);
   });
+}
+
+function getPhotos(term, tags, lat, lon, name) {
+  clear(photos);
+  var term = document.getElementById('term').value;
+
+  var searchterms = {
+    tag: tags,
+    lat: lat,
+    lon: lon,
+    name: name
+  }
+
+  var request = new XMLHttpRequest();
+  request.open('POST', '/photo/' + term);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.send(JSON.stringify(searchterms));
+
+  request.addEventListener('load', function() {
+    var data = JSON.parse(request.response);
+    var thePhoto = data.photos.photo;
+    var theCarousel = carouselItems(thePhoto);
+    photos.appendChild(theCarousel);
+  })
+  return photos;
+};
+
+function getWeather(term, name, country) {
+  var term = document.getElementById('term').value;
+
+  var searchinput = {
+    name: name,
+    country: country,
+  }
+
+  var request = new XMLHttpRequest();
+  request.open('POST', '/location/' + term);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.send(JSON.stringify(searchinput));
+
+  request.addEventListener('load', function(data) {
+    if (request.status >= 200 && request.status < 400) {
+      var data = JSON.parse(request.response);
+      var locationKey = data[0].Key;
+      forecast(locationKey);
+    }
+  })
+}
+
+function forecast(locationKey) {
+  clear(weather);
+  var xhr = new XMLHttpRequest();
+  var input = {
+    key: locationKey
+  }
+  xhr.open('POST', '/weather');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify(input));
+
+  xhr.onload = function(){
+    if (xhr.status >= 200 && xhr.status < 400) {
+      var weatherData = JSON.parse(xhr.response);
+      var forecasts = weatherData.DailyForecasts;
+
+      var theWeather = tableItems(forecasts);
+      weather.appendChild(theWeather);
+
+      return weather;
+    }
+  }
+}
+
+function tableItems(forecasts) {
+  //create table elements.
+  var theWeather = document.createElement('div');
+  var theTable = document.createElement('table');
+  theTable.setAttribute('class','table');
+  var theHead = document.createElement('thead');
+  var theHeaders = document.createElement('tr');
+  var theDate = document.createElement('th');
+  theDate.textContent = 'Day';
+  var theDayPhrase = document.createElement('th');
+  theDayPhrase.textContent = 'Description (Day)';
+  var theNightPhrase = document.createElement('th');
+  theNightPhrase.textContent = 'Description (Night)';
+  var theTemp = document.createElement('th');
+  theTemp.textContent = 'High/ Low';
+  var theBody = document.createElement('tbody');
+
+  var day1 = forecasts[0];
+  var items1 = tableData(day1);
+  var day2 = forecasts[1];
+  var items2 = tableData(day2);
+  var day3 = forecasts[2];
+  var items3 = tableData(day3);
+  var day4 = forecasts[3];
+  var items4 = tableData(day4);
+  var day5 = forecasts[4];
+  var items5 = tableData(day5);
+
+  theTable.appendChild(theHead);
+  theHead.appendChild(theDate);
+  theHead.appendChild(theTemp);
+  theHead.appendChild(theDayPhrase);
+  theHead.appendChild(theNightPhrase);
+  theTable.appendChild(theBody);
+  theBody.appendChild(items1);
+  theBody.appendChild(items2);
+  theBody.appendChild(items3);
+  theBody.appendChild(items4);
+  theBody.appendChild(items5);
+
+  theWeather.setAttribute('class','col-offset-md-1 col-md-8 weather');
+  theWeather.appendChild(theTable);
+
+  return theWeather;
+}
+
+function tableData(dayN) {
+  var theInfo = document.createElement('tr');
+  var day = document.createElement('td');
+  day.textContent = dayN.Date.slice(0,10);
+  var dayPhrase = document.createElement('td');
+  var temp = document.createElement('td');
+  temp.textContent = dayN.Temperature.Maximum.Value + '°F' + '/ '
+  + dayN.Temperature.Minimum.Value + '°F';
+  dayPhrase.textContent = dayN.Day.ShortPhrase;
+  var nightPhrase = document.createElement('td');
+  nightPhrase.textContent = dayN.Night.ShortPhrase;
+
+  theInfo.appendChild(day);
+  theInfo.appendChild(temp);
+  theInfo.appendChild(dayPhrase);
+  theInfo.appendChild(nightPhrase);
+
+  return theInfo;
 }
 
 function show(city) {
@@ -222,136 +358,6 @@ function show(city) {
   }
   return where
 }
-
-function getWeather(term, name, country) {
-  var term = document.getElementById('term').value;
-
-  var searchinput = {
-    name: name,
-    country: country,
-  }
-
-  var request = new XMLHttpRequest();
-  request.open('POST', '/location/' + term);
-  request.setRequestHeader('Content-Type', 'application/json');
-  request.send(JSON.stringify(searchinput));
-
-  request.addEventListener('load', function(data) {
-    if (request.status >= 200 && request.status < 400) {
-      var data = JSON.parse(request.response);
-      var locationKey = data[0].Key;
-      forecast(locationKey);
-    }
-  })
-}
-
-function forecast(locationKey) {
-  clear(weather);
-  var xhr = new XMLHttpRequest();
-  var input = {
-    key: locationKey
-  }
-  xhr.open('POST', '/weather');
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send(JSON.stringify(input));
-
-  xhr.onload = function(){
-    if (xhr.status >= 200 && xhr.status < 400) {
-      var weatherData = JSON.parse(xhr.response);
-      var forecasts = weatherData.DailyForecasts;
-
-      //create table elements.
-      var theWeather = document.createElement('div');
-      var theTable = document.createElement('table');
-      theTable.setAttribute('class','table');
-      var theHead = document.createElement('thead');
-      var theHeaders = document.createElement('tr');
-      var theDate = document.createElement('th');
-      theDate.textContent = 'Day';
-      var theDayPhrase = document.createElement('th');
-      theDayPhrase.textContent = 'Description (Day)';
-      var theNightPhrase = document.createElement('th');
-      theNightPhrase.textContent = 'Description (Night)';
-      var theTemp = document.createElement('th');
-      theTemp.textContent = 'High/ Low';
-      var theBody = document.createElement('tbody');
-
-      var day1 = forecasts[0];
-      var items1 = tableData(day1);
-      var day2 = forecasts[1];
-      var items2 = tableData(day2);
-      var day3 = forecasts[2];
-      var items3 = tableData(day3);
-      var day4 = forecasts[3];
-      var items4 = tableData(day4);
-      var day5 = forecasts[4];
-      var items5 = tableData(day5);
-
-      theTable.appendChild(theHead);
-      theHead.appendChild(theDate);
-      theHead.appendChild(theTemp);
-      theHead.appendChild(theDayPhrase);
-      theHead.appendChild(theNightPhrase);
-      theTable.appendChild(theBody);
-      theBody.appendChild(items1);
-      theBody.appendChild(items2);
-      theBody.appendChild(items3);
-      theBody.appendChild(items4);
-      theBody.appendChild(items5);
-
-      theWeather.setAttribute('class','col-offset-md-1 col-md-8 weather');
-      theWeather.appendChild(theTable);
-      weather.appendChild(theWeather);
-
-      return weather;
-    }
-  }
-}
-
-function tableData(dayN) {
-  var theInfo = document.createElement('tr');
-  var day = document.createElement('td');
-  day.textContent = dayN.Date.slice(0,10);
-  var dayPhrase = document.createElement('td');
-  var temp = document.createElement('td');
-  temp.textContent = dayN.Temperature.Maximum.Value + '°F' + '/ '
-  + dayN.Temperature.Minimum.Value + '°F';
-  dayPhrase.textContent = dayN.Day.ShortPhrase;
-  var nightPhrase = document.createElement('td');
-  nightPhrase.textContent = dayN.Night.ShortPhrase;
-
-  theInfo.appendChild(day);
-  theInfo.appendChild(temp);
-  theInfo.appendChild(dayPhrase);
-  theInfo.appendChild(nightPhrase);
-
-  return theInfo;
-}
-
-function getPhotos(term, tags, lat, lon, name) {
-  clear(photos);
-  var term = document.getElementById('term').value;
-
-  var searchterms = {
-    tag: tags,
-    lat: lat,
-    lon: lon,
-    name: name
-  }
-
-  var request = new XMLHttpRequest();
-  request.open('POST', '/photo/' + term);
-  request.setRequestHeader('Content-Type', 'application/json');
-  request.send(JSON.stringify(searchterms));
-
-  request.addEventListener('load', function() {
-    var data = JSON.parse(request.response);
-    var thePhoto = data.photos.photo;
-    var theCarousel = carouselItems(thePhoto);
-    photos.appendChild(theCarousel);
-  })
-  return photos;
-};
 
 function carouselItems(thePhoto) {
   var theCarousel = document.createElement('div');
@@ -505,6 +511,12 @@ function bookmarks(nextCity) {
   }
 }
 
+function showResults(results, photos, term) {
+  clear(results);
+  clear(photos);
+  search(term);
+}
+
 function clear(area) {
   while (area.firstChild) {
     area.removeChild(area.firstChild);
@@ -539,11 +551,6 @@ function swap(current, next) {
   theNext.classList.remove('hide');
 }
 
-function showResults(results, photos, term) {
-  clear(results);
-  clear(photos);
-  search(term);
-}
 
 var results = document.getElementById('results');
 var photos = document.createElement('div');
