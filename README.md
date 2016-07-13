@@ -17,6 +17,7 @@ https://nextination.herokuapp.com/
 
 **Node.js Dependencies**
 * express
+* request
 * body-parser
 * cookie-parser
 * nodemon
