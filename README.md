@@ -24,6 +24,7 @@ https://nextination.herokuapp.com/
 
 **Frameworks and Libraries**
 * Bootstrap
+* jQuery
 
 ![Alt text](https://raw.githubusercontent.com/songhyunlee/Nextination/master/screenshots/readme.png "search")
 ![Alt text](https://raw.githubusercontent.com/songhyunlee/Nextination/master/screenshots/readme4.png "photos")
