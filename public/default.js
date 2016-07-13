@@ -95,7 +95,7 @@ plane.addEventListener('click', function(e) {
         var listLink = document.createElement('a');
         listLink.setAttribute('href','#');
         var destination = document.createElement('li');
-        destination.setAttribute('class', 'destinationlink');
+        destination.setAttribute('class', 'destinationLink');
         destination.textContent = matchedUser.nextCity[i];
         listLink.appendChild(destination);
         box.appendChild(listLink);
@@ -352,18 +352,18 @@ function tableData(dayN) {
   var theInfo = document.createElement('tr');
   var day = document.createElement('td');
   day.textContent = dayN.Date.slice(0,10);
-  var dayphrase = document.createElement('td');
+  var dayPhrase = document.createElement('td');
   var temp = document.createElement('td');
   temp.textContent = dayN.Temperature.Maximum.Value + '°F' + '/ '
   + dayN.Temperature.Minimum.Value + '°F';
-  dayphrase.textContent = dayN.Day.ShortPhrase;
-  var nightphrase = document.createElement('td');
-  nightphrase.textContent = dayN.Night.ShortPhrase;
+  dayPhrase.textContent = dayN.Day.ShortPhrase;
+  var nightPhrase = document.createElement('td');
+  nightPhrase.textContent = dayN.Night.ShortPhrase;
 
   theInfo.appendChild(day);
   theInfo.appendChild(temp);
-  theInfo.appendChild(dayphrase);
-  theInfo.appendChild(nightphrase);
+  theInfo.appendChild(dayPhrase);
+  theInfo.appendChild(nightPhrase);
 
   return theInfo;
 }
