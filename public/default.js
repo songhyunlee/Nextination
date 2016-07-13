@@ -80,49 +80,12 @@ signupBtn.addEventListener('click', function(e) {
 
 var plane = document.getElementById('homeicon');
 plane.addEventListener('click', function(e) {
-  if(matchedUser) {
+  if (matchedUser) {
     hideArea(searchBar);
     hideArea(registration);
 
-    if(matchedUser.nextCity){
-      var heading = document.createElement('h3');
-      heading.textContent ='Your Next Destinations: ';
-      var box = document.createElement('div');
-      box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
-      box.setAttribute('id', 'destination-box');
-
-      for (var i = 0; i < matchedUser.nextCity.length; i++) {
-        var listLink = document.createElement('a');
-        listLink.setAttribute('href','#');
-        var destination = document.createElement('li');
-        destination.setAttribute('class', 'destinationLink');
-        destination.textContent = matchedUser.nextCity[i];
-        listLink.appendChild(destination);
-        box.appendChild(listLink);
-
-        var destinations = [];
-        destinations.push(destination);
-
-        destinations.forEach(function(destination) {
-          destination.addEventListener('click', function(e) {
-            clear(results);
-            var newTerm = destination.textContent;
-            information(newTerm);
-          })
-        })
-      }
-      clear(results);
-      results.appendChild(heading);
-      results.appendChild(box);
-    } else {
-      var box = document.createElement('div');
-      box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
-      box.setAttribute('id', 'destination-box');
-      var heading = document.createElement('h4');
-      heading.textContent = 'You have no bookmarked destinations.';
-      clear(results);
-      results.appendChild(heading);
-    }
+    var nextCity = matchedUser.nextCity;
+    bookmarks(nextCity);
   }
 })
 
@@ -134,7 +97,6 @@ function homepage() {
   xhr.addEventListener('load', function() {
     if (xhr.responseText) {
       matchedUser.push(JSON.parse(xhr.responseText));
-      console.log(matchedUser);
       swap('login-form','user-home');
       var user = document.getElementById('user');
       var matched = JSON.parse(xhr.responseText);
@@ -147,7 +109,6 @@ function homepage() {
 }
 
 function information(term) {
-
   var xhr = new XMLHttpRequest();
 
   xhr.open('GET', '/search/' + term);
@@ -190,7 +151,7 @@ function show(city) {
 
     icon.addEventListener('click', function(e){
       bookmarked.push(cityName.textContent);
-      if(matchedUser){
+      if (matchedUser) {
         matchedUser.nextCity = bookmarked;
       } else {
         alert ('You need to be logged in to view your destinations!')
@@ -348,7 +309,6 @@ function forecast(locationKey) {
 }
 
 function tableData(dayN) {
-
   var theInfo = document.createElement('tr');
   var day = document.createElement('td');
   day.textContent = dayN.Date.slice(0,10);
@@ -493,8 +453,54 @@ function getPhotos(term, tags, lat, lon, name) {
   return photos;
 };
 
+function bookmarks(nextCity) {
+  if (nextCity) {
+    var heading = document.createElement('h3');
+    heading.textContent ='Your Next Destinations: ';
+    var box = document.createElement('div');
+    box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
+    box.setAttribute('id', 'destination-box');
+
+    for (var i = 0; i < nextCity.length; i++) {
+      var listLink = document.createElement('a');
+      listLink.setAttribute('href','#');
+      var destination = document.createElement('li');
+      destination.setAttribute('class', 'destinationLink');
+      destination.textContent = nextCity[i];
+      listLink.appendChild(destination);
+      box.appendChild(listLink);
+
+      var destinations = [];
+      destinations.push(destination);
+
+      destinations.forEach(function(destination) {
+        destination.addEventListener('click', function(e) {
+          clear(results);
+          var newTerm = destination.textContent;
+          information(newTerm);
+        })
+      })
+    }
+    clear(results);
+    results.appendChild(heading);
+    results.appendChild(box);
+
+    return results;
+  } else {
+    var box = document.createElement('div');
+    box.setAttribute('class', 'col-md-offset-md-1 col-md-8');
+    box.setAttribute('id', 'destination-box');
+    var heading = document.createElement('h4');
+    heading.textContent = 'You have no bookmarked destinations.';
+    clear(results);
+    results.appendChild(heading);
+
+    return results;
+  }
+}
+
 function clear(area) {
-  while(area.firstChild) {
+  while (area.firstChild) {
     area.removeChild(area.firstChild);
   }
 }
@@ -504,14 +510,14 @@ function clearFields(id) {
 }
 
 function showArea (area) {
-  if(area.className == 'hide'){
+  if (area.className == 'hide') {
     area.classList.remove('hide');
     area.classList.add('current');
   }
 }
 
 function hideArea (area) {
-  if(area.className == 'current'){
+  if (area.className == 'current') {
     area.classList.remove('current');
     area.classList.add('hide');
   }
